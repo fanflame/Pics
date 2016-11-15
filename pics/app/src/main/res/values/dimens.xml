@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2012 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<resources>
+
+    <dimen name="tab_height">48dip</dimen>
+    <dimen name="image_thumbnail_size">100dp</dimen>
+    <dimen name="image_thumbnail_spacing">2dp</dimen>
+    <dimen name="image_detail_pager_margin">80dp</dimen>
+    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="image_detail_setting_padding">30dp</dimen>
+    <dimen name="gridview_height">120dp</dimen>
+    <dimen name="drawlayout_height">55dp</dimen>
+    <dimen name="drawlayout_width">200dp</dimen>
+    <dimen name="setting_item_height">35dp</dimen>
+    <dimen name="alert_width">290dp</dimen>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+
+    <dimen name="un_radius">0dp</dimen>
+    <dimen name="textsize_tab">18sp</dimen>
+    <dimen name="textsize_et">16sp</dimen>
+    <dimen name="et_padding">8dp</dimen>
+
+    <dimen name="tag_image_textsize">16sp</dimen>
+    <dimen name="tag_image_cornerdistance">60dp</dimen>
+    <dimen name="tag_image_tagwidth">35dp</dimen>
+    <dimen name="tag_image_tagroundradius">0dp</dimen>
+
+    <dimen name="text_radius">0dp</dimen>
+
+</resources>

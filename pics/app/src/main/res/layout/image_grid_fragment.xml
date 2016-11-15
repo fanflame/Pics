@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:id="@+id/tvSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/un_radius"
+        android:background="@drawable/shape_edittext"
+        android:drawableLeft="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+        android:gravity="center"
+        android:hint="你想要的这里都有"
+        android:padding="8dp"
+        android:maxLines="1" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSearch">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pull_refresh_grid"
+            style="@style/gv_styles" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

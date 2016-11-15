@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ran.pics.view.pulllayout.PullToZoomLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pull="http://schemas.android.com/apk/res-auto"
+    xmlns:material="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/zoom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    pull:header="@layout/imageview"
+    pull:maxHeaderHeight="350dp"
+    pull:minHeaderHeight="150dp" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp" >
+
+        <com.ran.pics.view.MaterialSytle.LFrameLayout
+            android:id="@+id/home_moreclassifi"
+            android:layout_width="fill_parent"
+            android:layout_height="52.0dip"
+            android:clickable="true"
+            android:focusable="true"
+            material:widget_animColor="#bbff2d6f"
+            material:widget_type="right" >
+
+            <RelativeLayout
+                android:id="@+id/sound_and_vibrate"
+                android:layout_width="fill_parent"
+                android:layout_height="52.0dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/home_moreclassifi"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="14.0dip"
+                    android:layout_height="14.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/open_arrow" />
+            </RelativeLayout>
+        </com.ran.pics.view.MaterialSytle.LFrameLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@mipmap/list_blockbg_divider" />
+
+        <com.ran.pics.view.MaterialSytle.LFrameLayout
+            android:id="@+id/mydown"
+            android:layout_width="fill_parent"
+            android:layout_height="52.0dip"
+            android:clickable="true"
+            android:focusable="true"
+            material:widget_animColor="#bbff2d6f"
+            material:widget_type="right" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="52.0dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/home_mydown"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="14.0dip"
+                    android:layout_height="14.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/open_arrow" />
+            </RelativeLayout>
+        </com.ran.pics.view.MaterialSytle.LFrameLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@mipmap/list_blockbg_divider" />
+
+        <com.ran.pics.view.MaterialSytle.LFrameLayout
+            android:id="@+id/clearCache"
+            android:layout_width="fill_parent"
+            android:layout_height="52.0dip"
+            android:clickable="true"
+            android:focusable="true"
+            material:widget_animColor="#bbff2d6f"
+            material:widget_type="right" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="52.0dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/home_clearcache"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="14.0dip"
+                    android:layout_height="14.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/open_arrow" />
+            </RelativeLayout>
+        </com.ran.pics.view.MaterialSytle.LFrameLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@mipmap/list_blockbg_divider" />
+
+        <com.ran.pics.view.MaterialSytle.LFrameLayout
+            android:id="@+id/about"
+            android:layout_width="fill_parent"
+            android:layout_height="52.0dip"
+            android:clickable="true"
+            android:focusable="true"
+            material:widget_animColor="#bbff2d6f"
+            material:widget_type="right" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="52.0dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/home_about"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="14.0dip"
+                    android:layout_height="14.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/open_arrow" />
+            </RelativeLayout>
+        </com.ran.pics.view.MaterialSytle.LFrameLayout>
+    </LinearLayout>
+
+</com.ran.pics.view.pulllayout.PullToZoomLayout>

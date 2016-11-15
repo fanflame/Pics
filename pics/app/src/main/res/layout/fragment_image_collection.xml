@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/gvRefresh"
+                style="@style/gv_styles" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <com.ran.pics.view.progressbar.CircularProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateOnly="false" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            style="@style/tv_styles"
+            android:layout_gravity="center"
+            android:text="您还没有收藏内容"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>
