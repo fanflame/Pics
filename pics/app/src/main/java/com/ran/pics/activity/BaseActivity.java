@@ -6,17 +6,18 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.ran.pics.R;
 import com.ran.pics.util.ToastUtil;
+import com.ran.pics.view.SlideView;
 
 import butterknife.ButterKnife;
 
 public class BaseActivity extends FragmentActivity {
     private GestureDetector detector;
+    private SlideView slideView;
 
     private SimpleOnGestureListener onGestureListener = new SimpleOnGestureListener() {
         @Override
@@ -68,22 +69,19 @@ public class BaseActivity extends FragmentActivity {
         ToastUtil.cancel();
     }
 
+    public void setContentView(int layoutResID,boolean canSlideFinish){
+        if(canSlideFinish){
+            slideView = (SlideView) View.inflate(this,R.layout.activity_base,null);
+            View.inflate(this, layoutResID,slideView);
+            super.setContentView(slideView);
+        }else{
+            super.setContentView(layoutResID);
+        }
+        ButterKnife.bind(this);
+    }
     @Override
     public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
-        ButterKnife.bind(this);
+        setContentView(layoutResID,true);
     }
 
     private void initEvent() {
@@ -96,10 +94,10 @@ public class BaseActivity extends FragmentActivity {
         super.finish();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return detector.onTouchEvent(event);
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        return detector.onTouchEvent(event);
+//    }
 
     @Override
     public void onBackPressed() {

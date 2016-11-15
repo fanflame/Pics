@@ -21,7 +21,8 @@
 
     <style name="AppTheme.FullScreen" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/red_btn_bg_color</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme.Holo">

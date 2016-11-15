@@ -2,11 +2,13 @@ package com.ran.pics.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baidu.appx.BDNativeAd;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,6 +41,10 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         inflater = LayoutInflater.from(context);
         this.picList = picList;
         width = UILApplication.getPicWidth(context);
+        initAd();
+    }
+
+    private void initAd(){
         nativeAd = new BDNativeAd(context, context.getString(R.string.baidu_app_key),
                 context.getString(R.string.baidu_ad_id));
         nativeAd.loadAd();
@@ -52,7 +58,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
                 view = inflater
                         .inflate(R.layout.item_grid_image, parent, false);
         } else {
-            view = inflater.inflate(R.layout.item_grid_image,
+            view = inflater.inflate(R.layout.item_grid_ad,
                             null);
         }
         return new Holder(view);
@@ -68,7 +74,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     }
 
     private void loadImage(final Holder holder,final int position){
-        ViewGroup.LayoutParams layoutParams = holder.imageView.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = width;
 //        holder.imageView.setLayoutParams(layoutParams);
@@ -104,45 +110,31 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     }
 
     private void loadAd(final Holder holder,final int position){
+        ViewGroup.LayoutParams layoutParams = holder.imageView.getLayoutParams();
+        layoutParams.height = layoutParams.width;
         ArrayList<BDNativeAd.AdInfo> adArray = nativeAd.getAdInfos();
+        BDNativeAd.AdInfo adInfo = adArray.get(0);
         //... 自定义展示UI,其中BDNativeAd.AdInfo里的
         // didShow() 和 didClick()
         // 需要相应的UI响应逻辑中触发调用。
+        holder.tvTitle.setText(adInfo.getTitle());
+        holder.tvDescription.setText(adInfo.getDescription());
+        holder.tvDownloadNum.setText(adInfo.getDownloadNum());
+        holder.tvFileSize.setText(adInfo.getFileSize());
         ImageLoader.getInstance().displayImage(
-                adArray.get(0).getImageUrl(), holder.imageView, UILApplication.initImageOption(),
-                new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                        holder.progressBar.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view,
-                                                FailReason failReason) {
-                        holder.progressBar.setVisibility(View.GONE);
-//                        picList.get(position).setLoadFailed(true);
-                        //TODO 局部更新
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view,
-                                                  Bitmap loadedImage) {
-                        holder.progressBar.setVisibility(View.GONE);
-                    }
-                }, new ImageLoadingProgressListener() {
-                    @Override
-                    public void onProgressUpdate(String imageUri, View view,
-                                                 int current, int total) {
-                    }
-                });
+                adInfo.getImageUrl(), holder.imageView, UILApplication.initImageOption(),null);
+        ImageLoader.getInstance().displayImage(
+                adInfo.getIconUrl(), holder.icon, UILApplication.initImageOption(),null);
     }
 
     @Override
     public int getItemViewType(int position) {
-//        return picList.get(position).isLoadFailed() ? LOAD_AD:LOAD_IMAGE;
-        if(nativeAd.isLoaded()){
+        if(nativeAd != null && nativeAd.isLoaded() && position%30 == 3){
             return LOAD_AD;
         }else {
+            if(nativeAd == null){
+                initAd();
+            }
             return LOAD_IMAGE;
         }
     }
@@ -217,10 +209,28 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     }
 
     class Holder extends RecyclerView.ViewHolder{
+        @Nullable
         @BindView(R.id.image)
         ImageView imageView;
+        @Nullable
         @BindView(R.id.progressBar)
         ImageView progressBar;
+
+        @Nullable
+        @BindView(R.id.icon)
+        ImageView icon;
+        @Nullable
+        @BindView(R.id.tvTitle)
+        TextView tvTitle;
+        @Nullable
+        @BindView(R.id.tvDescription)
+        TextView tvDescription;
+        @Nullable
+        @BindView(R.id.tvDownloadNum)
+        TextView tvDownloadNum;
+        @Nullable
+        @BindView(R.id.tvFileSize)
+        TextView tvFileSize;
 
         public Holder(View itemView) {
             super(itemView);

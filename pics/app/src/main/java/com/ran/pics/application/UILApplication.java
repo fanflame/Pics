@@ -25,6 +25,7 @@ import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 
+import com.github.moduth.blockcanary.BlockCanary;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,7 +34,9 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.ran.pics.R;
+import com.ran.pics.util.AppBlockCanaryContext;
 import com.ran.pics.util.Constant;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -89,8 +92,13 @@ public class UILApplication extends Application {
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                     .detectAll().penaltyDeath().build());
         }
-//        MobiSageManager.newInstance().initMobiSageManager(this,
-//                publicId, "");
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
         super.onCreate();
         initImageLoader(getApplicationContext());
     }
@@ -112,4 +120,5 @@ public class UILApplication extends Application {
                 .build();
         ImageLoader.getInstance().init(config);
     }
+
 }
