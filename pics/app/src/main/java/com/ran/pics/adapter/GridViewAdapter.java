@@ -55,11 +55,11 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         if (viewType == LOAD_IMAGE) {//image
-                view = inflater
+            view = inflater
                         .inflate(R.layout.item_grid_image, parent, false);
         } else {
-            view = inflater.inflate(R.layout.item_grid_ad,
-                            null);
+            view = inflater.inflate(R.layout.item_grid_ad,parent,
+                            false);
         }
         return new Holder(view);
     }
@@ -110,8 +110,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     }
 
     private void loadAd(final Holder holder,final int position){
-        ViewGroup.LayoutParams layoutParams = holder.imageView.getLayoutParams();
-        layoutParams.height = layoutParams.width;
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+        layoutParams.width = width;
+        layoutParams.height = width;
         ArrayList<BDNativeAd.AdInfo> adArray = nativeAd.getAdInfos();
         BDNativeAd.AdInfo adInfo = adArray.get(0);
         //... 自定义展示UI,其中BDNativeAd.AdInfo里的
@@ -119,8 +120,10 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         // 需要相应的UI响应逻辑中触发调用。
         holder.tvTitle.setText(adInfo.getTitle());
         holder.tvDescription.setText(adInfo.getDescription());
-        holder.tvDownloadNum.setText(adInfo.getDownloadNum());
-        holder.tvFileSize.setText(adInfo.getFileSize());
+        holder.tvDownloadNum.setVisibility(View.GONE);
+        holder.tvFileSize.setVisibility(View.GONE);
+//        holder.tvDownloadNum.setText(adInfo.getDownloadNum());
+//        holder.tvFileSize.setText(adInfo.getFileSize());
         ImageLoader.getInstance().displayImage(
                 adInfo.getImageUrl(), holder.imageView, UILApplication.initImageOption(),null);
         ImageLoader.getInstance().displayImage(
@@ -155,7 +158,6 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     }
 
 
-
     public void addData(ArrayList<Pic> picListTemp) {
         if (picList == null) {
             picList = new ArrayList<Pic>();
@@ -184,28 +186,6 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     public void cancle(){
         ImageLoader.getInstance().stop();
         ImageLoader.getInstance().destroy();
-    }
-
-    private String convertStatus(int status) {
-        String strStatus = "";
-        switch (status) {
-            case 0:
-                strStatus = "点击重试";
-                break;
-            case 2:
-                strStatus = "下载中";
-                break;
-            case 3:
-                strStatus = "点击安装";
-                break;
-            case 4:
-                strStatus = "点击启动";
-                break;
-            case 1:
-            default:
-                strStatus = "下载";
-        }
-        return strStatus;
     }
 
     class Holder extends RecyclerView.ViewHolder{

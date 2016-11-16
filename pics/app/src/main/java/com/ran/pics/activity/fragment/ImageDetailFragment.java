@@ -78,17 +78,17 @@ public class ImageDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(rootView != null){
-            ViewGroup parent = (ViewGroup) rootView.getParent();
-            if (parent != null) {
-                parent.removeView(rootView);
-            }
-        }else{
+//        if(rootView != null){
+//            ViewGroup parent = (ViewGroup) rootView.getParent();
+//            if (parent != null) {
+//                parent.removeView(rootView);
+//            }
+//        }else{
             rootView = inflater.inflate(R.layout.fragment_image_detail,
                     container, false);
             initView(rootView);
             initEvent();
-        }
+//        }
         return rootView;
     }
 

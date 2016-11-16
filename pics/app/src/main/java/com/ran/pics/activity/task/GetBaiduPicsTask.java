@@ -26,7 +26,8 @@ public class GetBaiduPicsTask {
 		String url = Constant.UrlInterface.URL_BAIDU;
 		String post = url.replace("THESEARCHWORD", searchWord)
 				.replace("ONEPAGENUM", ONEPAGENUM)
-				.replace("PAGENUM", pageNum * 30 + "").replace("WIDTH","1080").replace("HEIGHT","1920");
+				.replace("PAGENUM", pageNum * 30 + "");
+//				.replace("WIDTH","1080").replace("HEIGHT","1920");
 		client.post(post, jsonHandler);
 	}
 

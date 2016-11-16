@@ -79,6 +79,7 @@ public class MainActivity extends BaseActivity{
         adapter = new MainPagerAdapter(getSupportFragmentManager(),
                 fragmentList);
         pager.setAdapter(adapter);
+        pager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(pager);
     }
 

@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment{
         adapter = new MainPagerAdapter(getFragmentManager(),
                 fragmentList);
         pager.setAdapter(adapter);
+        pager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(pager);
     }
 }

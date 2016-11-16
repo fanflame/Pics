@@ -112,17 +112,17 @@ public class ImageGridFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (rootView != null) {
-            ViewGroup parent = (ViewGroup) rootView.getParent();
-            if (parent != null) {
-                parent.removeView(rootView);
-            }
+//        if (rootView != null) {
+//            ViewGroup parent = (ViewGroup) rootView.getParent();
+//            if (parent != null) {
+//                parent.removeView(rootView);
+//            }
 //            gridAdapter.notifyDataSetChanged();
-        } else {
+//        } else {
             initView(inflater, container);
             initEvent();
             initData();
-        }
+//        }
 
         postBaiduAllPics(keyword, currentPageNum);
 
