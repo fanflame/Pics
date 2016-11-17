@@ -1,7 +1,6 @@
 package com.ran.pics.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,13 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.appx.BDNativeAd;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.ran.pics.R;
 import com.ran.pics.application.UILApplication;
 import com.ran.pics.bean.Pic;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 
 import java.util.ArrayList;
 
@@ -78,33 +74,30 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         layoutParams.width = width;
         layoutParams.height = width;
 //        holder.imageView.setLayoutParams(layoutParams);
-        ImageLoader.getInstance().displayImage(
-                picList.get(position).getLinkUrl(), holder.imageView, UILApplication.initImageOption(),
-                new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                        holder.progressBar.setVisibility(View.VISIBLE);
-                    }
 
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view,
-                                                FailReason failReason) {
-                        holder.progressBar.setVisibility(View.GONE);
+        ImageLoaderUtils.getInstance().loadImage(picList.get(position).getLinkUrl(), holder.imageView, new ImageLoaderUtils.OnLoadListener() {
+            @Override
+            public void onLoadingStarted() {
+                holder.progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingFailed(String failMessage) {
+                holder.progressBar.setVisibility(View.GONE);
 //                        picList.get(position).setLoadFailed(true);
-                        //TODO 局部更新
-                    }
+                //TODO 局部更新
+            }
 
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view,
-                                                  Bitmap loadedImage) {
-                        holder.progressBar.setVisibility(View.GONE);
-                    }
-                }, new ImageLoadingProgressListener() {
-                    @Override
-                    public void onProgressUpdate(String imageUri, View view,
-                                                 int current, int total) {
-                    }
-                });
+            @Override
+            public void onLoadingComplete() {
+                holder.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onProgressUpdate() {
+
+            }
+        });
         holder.imageView.setTag(R.id.gridfragment_img_tag_id,position);
         holder.imageView.setOnClickListener(onClickListener);
     }
@@ -124,10 +117,10 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         holder.tvFileSize.setVisibility(View.GONE);
 //        holder.tvDownloadNum.setText(adInfo.getDownloadNum());
 //        holder.tvFileSize.setText(adInfo.getFileSize());
-        ImageLoader.getInstance().displayImage(
-                adInfo.getImageUrl(), holder.imageView, UILApplication.initImageOption(),null);
-        ImageLoader.getInstance().displayImage(
-                adInfo.getIconUrl(), holder.icon, UILApplication.initImageOption(),null);
+        ImageLoaderUtils.getInstance().loadImage(
+                adInfo.getImageUrl(), holder.imageView, null);
+        ImageLoaderUtils.getInstance().loadImage(
+                adInfo.getIconUrl(), holder.icon, null);
     }
 
     @Override
@@ -180,12 +173,12 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
 //    }
 
     public void resume() {
-        ImageLoader.getInstance().resume();
+        ImageLoaderUtils.getInstance().resume();
     }
 
     public void cancle(){
-        ImageLoader.getInstance().stop();
-        ImageLoader.getInstance().destroy();
+        ImageLoaderUtils.getInstance().stop();
+        ImageLoaderUtils.getInstance().destroy();
     }
 
     class Holder extends RecyclerView.ViewHolder{

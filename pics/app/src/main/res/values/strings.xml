@@ -19,7 +19,8 @@
 
     <string name="title">然</string>
     <string name="app_name">然·壁纸</string>
-    <string name="baidu_app_key">gM1OswGojMF7w187wuu0GCQeRjm2nT4R</string>
+    <string name="baidu_app_key">MGGIdG9t9GLtL2TbeViqhdENCCFRLaMw</string>
+    <string name="baidu_ad_splash_id">YLOawniAkw75ZXEn5mMtTvNi</string>
     <string name="baidu_ad_id">gM1OswGojMF7w187wuu0GCQeRjm2nT4R</string>
     <string name="app_description">This is a sample application for the Android Training class
         "Displaying Bitmaps Efficiently"

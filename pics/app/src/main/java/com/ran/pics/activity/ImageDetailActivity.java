@@ -24,7 +24,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ran.pics.R;
 import com.ran.pics.adapter.ImagePagerAdapter;
 import com.ran.pics.animation.DepthPageTransformer;
@@ -32,6 +31,7 @@ import com.ran.pics.bean.Pic;
 import com.ran.pics.util.Constant;
 import com.ran.pics.util.ToastUtil;
 import com.ran.pics.util.Utils;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 import com.ran.pics.view.ScaleAnimationImageView;
 
 import java.io.File;
@@ -155,19 +155,19 @@ public class ImageDetailActivity extends BaseActivity
         switch (position) {
             case 1:
                 File file;
-                if (tapPic != null && (file = ImageLoader.getInstance().getDiskCache().get(tapPic.getLinkUrl())) != null)
+                if (tapPic != null && (file = ImageLoaderUtils.getInstance().getDiskCache(tapPic.getLinkUrl())) != null)
                     Utils.setWallPaper(this, file.getPath());
                 else
                     ToastUtil.show(this, "设置失败");
                 break;
             case 2:
-                if (tapPic != null && (file = ImageLoader.getInstance().getDiskCache().get(tapPic.getLinkUrl())) != null)
+                if (tapPic != null && (file = ImageLoaderUtils.getInstance().getDiskCache(tapPic.getLinkUrl())) != null)
                     Utils.setLockPaper(this, file.getPath());
                 else
                     ToastUtil.show(this, "设置失败");
                 break;
             case 3:
-                if (tapPic != null && (file = ImageLoader.getInstance().getDiskCache().get(tapPic.getLinkUrl())) != null && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                if (tapPic != null && (file = ImageLoaderUtils.getInstance().getDiskCache(tapPic.getLinkUrl())) != null && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                     File fileTemp = new File(Environment.getExternalStorageDirectory() + Constant.Config.DOWN_BMP_PATH);
                     if (!fileTemp.exists())
                         fileTemp.mkdirs();

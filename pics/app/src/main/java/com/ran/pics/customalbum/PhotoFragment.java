@@ -25,7 +25,7 @@ import com.ran.pics.customalbum.bean.AlbumInfo;
 import com.ran.pics.customalbum.bean.PhotoInfo;
 import com.ran.pics.customalbum.bean.PhotoSerializable;
 import com.ran.pics.customalbum.util.ThumbnailsUtil;
-import com.ran.pics.customalbum.util.UniversalImageLoadTool;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,9 +106,9 @@ public class PhotoFragment extends Fragment {
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 				if (scrollState == 0) {
-					UniversalImageLoadTool.resume();
+					ImageLoaderUtils.getInstance().resume();
 				} else {
-					UniversalImageLoadTool.pause();
+					ImageLoaderUtils.getInstance().pause();
 				}
 			}
 

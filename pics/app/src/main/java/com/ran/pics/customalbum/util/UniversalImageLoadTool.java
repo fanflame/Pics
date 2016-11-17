@@ -11,14 +11,6 @@ public class UniversalImageLoadTool {
 
 	private static ImageLoader imageLoader = ImageLoader.getInstance();
 
-	public static ImageLoader getImageLoader() {
-		return imageLoader;
-	}
-
-	public static boolean checkImageLoader() {
-		return imageLoader.isInited();
-	}
-
 	public static void disPlay(String uri, ImageAware imageAware,
 							   int default_pic) {
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -31,33 +23,4 @@ public class UniversalImageLoadTool {
 		imageLoader.displayImage(uri, imageAware, options);
 	}
 
-	public static void clear() {
-		imageLoader.clearMemoryCache();
-		imageLoader.clearDiscCache();
-	}
-
-	public static void resume() {
-		imageLoader.resume();
-	}
-
-	/**
-	 * 暂停加载
-	 */
-	public static void pause() {
-		imageLoader.pause();
-	}
-
-	/**
-	 * 停止加载
-	 */
-	public static void stop() {
-		imageLoader.stop();
-	}
-
-	/**
-	 * 销毁加载
-	 */
-	public static void destroy() {
-		imageLoader.destroy();
-	}
 }

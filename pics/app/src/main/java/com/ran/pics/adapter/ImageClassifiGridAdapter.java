@@ -1,20 +1,16 @@
 package com.ran.pics.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.ran.pics.R;
 import com.ran.pics.application.UILApplication;
 import com.ran.pics.bean.Album;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 
 import java.util.ArrayList;
 
@@ -52,29 +48,26 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
         layoutParams.height = width;
         holder.ivShow.setLayoutParams(layoutParams);
         holder.tvName.setText(album.getName());
-        ImageLoader.getInstance().displayImage(
-                album.getPicList().get(0).getUrl(), holder.ivShow, UILApplication.initImageOption(),
-                new SimpleImageLoadingListener() {
+        ImageLoaderUtils.getInstance().loadImage(
+                album.getPicList().get(0).getUrl(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
                     @Override
-                    public void onLoadingStarted(String imageUri, View view) {
+                    public void onLoadingStarted() {
                         holder.ivProgressBar.setVisibility(View.VISIBLE);
                     }
 
                     @Override
-                    public void onLoadingFailed(String imageUri, View view,
-                                                FailReason failReason) {
+                    public void onLoadingFailed(String failMessage) {
                         holder.ivProgressBar.setVisibility(View.GONE);
                     }
 
                     @Override
-                    public void onLoadingComplete(String imageUri, View view,
-                                                  Bitmap loadedImage) {
+                    public void onLoadingComplete() {
                         holder.ivProgressBar.setVisibility(View.GONE);
                     }
-                }, new ImageLoadingProgressListener() {
+
                     @Override
-                    public void onProgressUpdate(String imageUri, View view,
-                                                 int current, int total) {
+                    public void onProgressUpdate() {
+
                     }
                 });
     }

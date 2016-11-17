@@ -16,7 +16,6 @@
 
 package com.ran.pics.activity.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,13 +23,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.ran.pics.R;
 import com.ran.pics.bean.Pic;
 import com.ran.pics.util.Utils;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 import com.ran.pics.view.ScaleAnimationImageView;
 
 public class ImageDetailFragment extends Fragment {
@@ -39,19 +35,11 @@ public class ImageDetailFragment extends Fragment {
 
     private int mImageNum;
     private ScaleAnimationImageView mImageView;
-    private DisplayImageOptions options;
     private Pic pic;
     private View rootView;
     private ScaleAnimationImageView.SingleTapListener singleTapListener;
 
     public ImageDetailFragment() {
-        options = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.mipmap.empty_photo)
-                .showImageOnFail(R.mipmap.empty_photo)
-                .resetViewBeforeLoading(true).cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .bitmapConfig(Bitmap.Config.ARGB_8888).considerExifParams(true)
-                .displayer(new FadeInBitmapDisplayer(300)).build();
     }
 
     public static ImageDetailFragment newInstance(int imageNum, Pic pic,ScaleAnimationImageView.SingleTapListener singleTapListener) {
@@ -106,8 +94,7 @@ public class ImageDetailFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ImageLoader.getInstance().displayImage(pic.getLinkUrl(), mImageView,
-                options);
+        ImageLoaderUtils.getInstance().loadImage(pic.getLinkUrl(), mImageView);
         if (OnClickListener.class.isInstance(getActivity())
                 && Utils.hasActionBar()) {
             mImageView.setOnClickListener((OnClickListener) getActivity());
@@ -124,6 +111,6 @@ public class ImageDetailFragment extends Fragment {
     }
 
     public void cancelWork() {
-        ImageLoader.getInstance().cancelDisplayTask(mImageView);
+        ImageLoaderUtils.getInstance().cancelLoad(mImageView);
     }
 }

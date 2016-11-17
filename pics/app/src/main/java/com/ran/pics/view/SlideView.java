@@ -102,12 +102,7 @@ public class SlideView extends LinearLayout{
             @Override
             public void onAnimationEnd(Animator animation) {
                 if(toPosition == initTranslationX){
-                    SlideView.this.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((Activity)getContext()).finish();
-                        }
-                    });
+                    ((Activity)getContext()).finish();
                 }
             }
 

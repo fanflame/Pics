@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.ran.pics.activity.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -27,12 +26,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.ran.pics.R;
-import com.ran.pics.application.UILApplication;
 import com.ran.pics.util.Constant;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 
 import java.util.ArrayList;
 
@@ -89,46 +85,29 @@ public class ImagePagerFragment extends Fragment {
 			final ImageView spinner = (ImageView) imageLayout
 					.findViewById(R.id.progressBar);
 
-			ImageLoader.getInstance().displayImage(imageUrls.get(position),
-					imageView, UILApplication.initImageOption(), new SimpleImageLoadingListener() {
-						@Override
-						public void onLoadingStarted(String imageUri, View view) {
-							spinner.setVisibility(View.VISIBLE);
-						}
+			ImageLoaderUtils.getInstance().loadImage(imageUrls.get(position), imageView, new ImageLoaderUtils.OnLoadListener() {
+				@Override
+				public void onLoadingStarted() {
+					spinner.setVisibility(View.VISIBLE);
+				}
 
-						@Override
-						public void onLoadingFailed(String imageUri, View view,
-													FailReason failReason) {
-							String message = null;
-							switch (failReason.getType()) {
-							case IO_ERROR:
-								message = "Input/Output error";
-								break;
-							case DECODING_ERROR:
-								message = "Image can't be decoded";
-								break;
-							case NETWORK_DENIED:
-								message = "Downloads are denied";
-								break;
-							case OUT_OF_MEMORY:
-								message = "Out Of Memory error";
-								break;
-							case UNKNOWN:
-								message = "Unknown error";
-								break;
-							}
-							Toast.makeText(getActivity(), message,
-									Toast.LENGTH_SHORT).show();
+				@Override
+				public void onLoadingFailed(String message) {
+					Toast.makeText(getActivity(), message,
+							Toast.LENGTH_SHORT).show();
+					spinner.setVisibility(View.GONE);
+				}
 
-							spinner.setVisibility(View.GONE);
-						}
+				@Override
+				public void onLoadingComplete() {
+					spinner.setVisibility(View.GONE);
+				}
 
-						@Override
-						public void onLoadingComplete(String imageUri,
-													  View view, Bitmap loadedImage) {
-							spinner.setVisibility(View.GONE);
-						}
-					});
+				@Override
+				public void onProgressUpdate() {
+
+				}
+			});
 
 			view.addView(imageLayout, 0);
 			return imageLayout;

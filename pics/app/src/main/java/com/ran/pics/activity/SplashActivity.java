@@ -3,7 +3,7 @@ package com.ran.pics.activity;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.baidu.appx.BDSplashAd;
+import com.baidu.appx.BDInterstitialAd;
 import com.ran.pics.R;
 
 import butterknife.BindString;
@@ -17,10 +17,10 @@ public class SplashActivity extends BaseActivity {
     private Handler handler;
     @BindString(R.string.baidu_app_key)
     String baiduAppKey;
-    @BindString(R.string.baidu_ad_id)
+    @BindString(R.string.baidu_ad_splash_id)
     String baiduAdId;
 
-    private BDSplashAd splashAd;
+    private BDInterstitialAd splashAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class SplashActivity extends BaseActivity {
     private void init() {
         handler = new Handler();
         //创建开屏广告
-        splashAd = new BDSplashAd(this, baiduAppKey, baiduAdId);
-        splashAd.setAdListener(new BDSplashAd.SplashAdListener() {
+        splashAd = new BDInterstitialAd(this, baiduAppKey, baiduAdId);
+        splashAd.setAdListener(new BDInterstitialAd.InterstitialAdListener() {
             @Override
             public void onAdvertisementViewDidHide() {
 
@@ -43,9 +43,9 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAdvertisementDataDidLoadSuccess() {
 //                //展示开屏广告
-//                if (splashAd.isLoaded()) {
-//                    splashAd.showAd();
-//                }
+                if (splashAd.isLoaded()) {
+                    splashAd.showAd();
+                }
             }
 
             @Override

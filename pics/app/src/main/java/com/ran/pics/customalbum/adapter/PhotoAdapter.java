@@ -15,9 +15,10 @@ import com.ran.pics.application.UILApplication;
 import com.ran.pics.customalbum.bean.PhotoInfo;
 import com.ran.pics.customalbum.imageaware.RotateImageViewAware;
 import com.ran.pics.customalbum.util.ThumbnailsUtil;
-import com.ran.pics.customalbum.util.UniversalImageLoadTool;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 
 import java.util.List;
+
 
 /**
  * 相片适配器
@@ -118,11 +119,11 @@ public class PhotoAdapter extends BaseAdapter {
 		viewHolder.image.setLayoutParams(layoutParams);
 		final PhotoInfo photoInfo = list.get(position);
 		if (photoInfo != null) {
-			UniversalImageLoadTool.disPlay(
+			ImageLoaderUtils.getInstance().loadImage(
                     ThumbnailsUtil.MapgetHashValue(photoInfo.getImage_id(),
                             photoInfo.getPath_file()),
                     new RotateImageViewAware(viewHolder.image, photoInfo
-                            .getPath_absolute()), R.mipmap.common_defalt_bg);
+                            .getPath_absolute()),null);
 			// UniversalImageLoadTool.disPlay(ThumbnailsUtil.MapgetHashValue(photoInfo.getImage_id(),photoInfo.getPath_file()),
 			// viewHolder.image, R.drawable.common_defalt_bg);
 		}

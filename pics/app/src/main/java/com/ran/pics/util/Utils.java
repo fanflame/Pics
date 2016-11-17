@@ -14,8 +14,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ran.pics.bean.Pic;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 import com.ran.pics.view.alertdialog.SweetAlertDialog;
 
 import java.io.File;
@@ -248,7 +248,7 @@ public class Utils {
                         new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
-                                deleteCacheFile();
+                                ImageLoaderUtils.getInstance().clearDiskCache();
                                 sDialog.setTitleText("删除成功!")
                                         .setContentText("缓存图片删除成功!")
                                         .setConfirmText("OK")
@@ -261,12 +261,6 @@ public class Utils {
                         }).show();
     }
 
-    /**
-     * 清除缓存
-     */
-    private static void deleteCacheFile() {
-        ImageLoader.getInstance().clearDiskCache();
-    }
 
     public static String getVersion(Context context) {
         try {
