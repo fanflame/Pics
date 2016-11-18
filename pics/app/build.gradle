@@ -31,7 +31,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     testCompile 'junit:junit:4.12'
     compile 'com.loopj.android:android-async-http:1.4.8'
-    compile files('libs/universal-image-loader-1.9.4.jar')
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile files('libs/BaiduAppX_V2.4.1_20160530.jar')
@@ -40,4 +39,6 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     debugCompile 'com.github.markzhai:blockcanary-android:1.4.0'
     releaseCompile 'com.github.markzhai:blockcanary-no-op:1.4.0'
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    compile 'com.yalantis:contextmenu:1.0.7'
 }

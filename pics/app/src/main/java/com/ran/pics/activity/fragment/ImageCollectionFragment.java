@@ -17,6 +17,7 @@ package com.ran.pics.activity.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,16 +54,16 @@ public class ImageCollectionFragment extends Fragment implements GetCollectionPi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (rootView != null) {
-            ViewGroup parent = (ViewGroup) rootView.getParent();
-            if (parent != null) {
-                parent.removeView(rootView);
-            }
-        } else {
+//        if (rootView != null) {
+//            ViewGroup parent = (ViewGroup) rootView.getParent();
+//            if (parent != null) {
+//                parent.removeView(rootView);
+//            }
+//        } else {
             initView(inflater, container);
             initEvent();
             initData();
-        }
+//        }
 
         getAllCollectionImages();
 
@@ -79,6 +80,7 @@ public class ImageCollectionFragment extends Fragment implements GetCollectionPi
         rootView = inflater.inflate(R.layout.fragment_image_collection,
                 container, false);
         mPullRefreshGridView = (RecyclerView) rootView.findViewById(R.id.gvRefresh);
+        mPullRefreshGridView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         progressBar = (CircularProgressBar) rootView
                 .findViewById(R.id.progressBar);
     }
@@ -105,7 +107,7 @@ public class ImageCollectionFragment extends Fragment implements GetCollectionPi
 
     private void initData() {
         gridAdapter = new ImageCollectionAdapter(getActivity());
-//        mGridView.setAdapter(gridAdapter);
+        mPullRefreshGridView.setAdapter(gridAdapter);
     }
 
     @Override
