@@ -4,5 +4,5 @@
     <item name="drag_handle" type="id"/>
     <item name="click_remove" type="id"/>
     <item name="gridfragment_img_tag_id" type="id"/>
-
+    <item name="tag_key_collection_id" type="id"/>
 </resources>

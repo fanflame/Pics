@@ -32,9 +32,12 @@
     <color name="white">#ffffffff</color>
     <color name="global_bg_gray">#DDDDDD</color>
     <color name="black">#ff000000</color>
+    <color name="btn_black_normal">#99000000</color>
+    <color name="btn_black_press">#ff000000</color>
     <color name="background_tab_pressed">#6633B5E5</color>
     <color name="bottom_back_color">#e7e7e7</color>
 
     <color name="et_hint_color">#cccccc</color>
+    <color name="float_bg">#cccccc</color>
 
 </resources>

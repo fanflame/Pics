@@ -22,15 +22,22 @@ import butterknife.ButterKnife;
 /**
  * Created by fanyiran on 15/5/9.
  */
-public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollectionAdapter.Holder> {
+public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollectionAdapter.Holder> implements View.OnClickListener,View.OnLongClickListener {
     private ArrayList<Pic> picList;
     private ArrayList<Pic> picCheckedList;
     private int width;
     private boolean isShowCheckBox;
+    private OnItemListener onItemListener;
 
-    public ImageCollectionAdapter(Activity activity) {
+
+    public interface OnItemListener{
+        void onItemClick(int position);
+        void onItemLongClick();
+    }
+
+    public ImageCollectionAdapter(Activity activity, OnItemListener onItemListener) {
         width = UILApplication.getPicWidth(activity);
-        ;
+        this.onItemListener = onItemListener;
     }
 
     public void setList(ArrayList<Pic> albumArrayList) {
@@ -94,6 +101,22 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
         } else {
             holder.cbChoice.setVisibility(View.GONE);
         }
+        holder.itemView.setTag(R.id.tag_key_collection_id,position);
+        holder.itemView.setOnClickListener(this);
+        holder.itemView.setOnLongClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(onItemListener != null)
+            onItemListener.onItemClick((Integer) v.getTag(R.id.tag_key_collection_id));
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if(onItemListener != null)
+            onItemListener.onItemLongClick();
+        return true;
     }
 
     @Override

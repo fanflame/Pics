@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011-2014 Sergey Tarasevich
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,15 +15,18 @@
  *******************************************************************************/
 package com.ran.pics.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ran.pics.R;
+import com.ran.pics.activity.ImageDetailActivity;
 import com.ran.pics.activity.task.DeletePicsTask;
 import com.ran.pics.activity.task.DeletePicsTask.OnDeletePicsCompleteListener;
 import com.ran.pics.activity.task.GetCollectionPicsTask;
@@ -31,16 +34,24 @@ import com.ran.pics.adapter.ImageCollectionAdapter;
 import com.ran.pics.bean.Pic;
 import com.ran.pics.util.Constant;
 import com.ran.pics.util.ToastUtil;
-import com.ran.pics.view.progressbar.CircularProgressBar;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 //收藏
-public class ImageCollectionFragment extends Fragment implements GetCollectionPicsTask.OnGetCollectionPicsListener,OnDeletePicsCompleteListener {
+public class ImageCollectionFragment extends Fragment
+        implements GetCollectionPicsTask.OnGetCollectionPicsListener
+        , OnDeletePicsCompleteListener
+        , ImageCollectionAdapter.OnItemListener {
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.gvRefresh)
+    RecyclerView mPullRefreshGridView;
     private ImageCollectionAdapter gridAdapter;
-    private RecyclerView mPullRefreshGridView;
     private View rootView;
-    private CircularProgressBar progressBar;
+//    private CircularProgressBar progressBar;
     private GetCollectionPicsTask collectionPicsTask;
     private DeletePicsTask deletePicsTask;
 
@@ -60,9 +71,9 @@ public class ImageCollectionFragment extends Fragment implements GetCollectionPi
 //                parent.removeView(rootView);
 //            }
 //        } else {
-            initView(inflater, container);
-            initEvent();
-            initData();
+        initView(inflater, container);
+        initData();
+        initEvent();
 //        }
 
         getAllCollectionImages();
@@ -79,40 +90,31 @@ public class ImageCollectionFragment extends Fragment implements GetCollectionPi
     private void initView(LayoutInflater inflater, ViewGroup container) {
         rootView = inflater.inflate(R.layout.fragment_image_collection,
                 container, false);
-        mPullRefreshGridView = (RecyclerView) rootView.findViewById(R.id.gvRefresh);
-        mPullRefreshGridView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        progressBar = (CircularProgressBar) rootView
-                .findViewById(R.id.progressBar);
-    }
-
-    private void initEvent() {
-//        mPullRefreshGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                Intent intent = new Intent(getActivity(), ImageDetailActivity.class);
-//                intent.putExtra(Constant.Extra.IMAGE_POSITION, position);
-//                intent.putExtra(ImageDetailActivity.PIC_LIST, gridAdapter.getList());
-//                startActivity(intent);
-//            }
-//        });
-//        mPullRefreshGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                gridAdapter.setShowCheckBox(!gridAdapter.getShowCheckBox());
-//                return false;
-//            }
-//        });
+        ButterKnife.bind(this,rootView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+        mPullRefreshGridView.setLayoutManager(gridLayoutManager);
+//        progressBar = (CircularProgressBar) rootView
+//                .findViewById(progressBar);
     }
 
     private void initData() {
-        gridAdapter = new ImageCollectionAdapter(getActivity());
+        gridAdapter = new ImageCollectionAdapter(getActivity(), this);
         mPullRefreshGridView.setAdapter(gridAdapter);
+    }
+
+    private void initEvent(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAllCollectionImages();
+            }
+        });
     }
 
     @Override
     public void onGetCollectionPics(ArrayList<Pic> result) {
-        progressBar.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
         gridAdapter.setList(result);
     }
 
@@ -125,18 +127,31 @@ public class ImageCollectionFragment extends Fragment implements GetCollectionPi
     private void cancelWork() {
 //        if (gridAdapter != null)
 //            gridAdapter.cancel();
-        if(collectionPicsTask != null)
+        if (collectionPicsTask != null)
             collectionPicsTask.cancleTask();
     }
 
-    private void deletePics(){
-        if(deletePicsTask == null)
-            deletePicsTask = new DeletePicsTask(getActivity(),this);
+    private void deletePics() {
+        if (deletePicsTask == null)
+            deletePicsTask = new DeletePicsTask(getActivity(), this);
         deletePicsTask.execute(gridAdapter.getPicCheckedList());
     }
 
     @Override
-    public void onDeletePicsComplete(boolean result){
-        ToastUtil.show(getActivity(),result ? "删除成功" :"删除失败");
+    public void onDeletePicsComplete(boolean result) {
+        ToastUtil.show(getActivity(), result ? "删除成功" : "删除失败");
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getActivity(), ImageDetailActivity.class);
+        intent.putExtra(Constant.Extra.IMAGE_POSITION, position);
+        intent.putExtra(ImageDetailActivity.PIC_LIST, gridAdapter.getList());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClick() {
+        gridAdapter.setShowCheckBox(!gridAdapter.getShowCheckBox());
     }
 }

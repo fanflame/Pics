@@ -196,6 +196,7 @@ public class ImageGridFragment extends Fragment implements View.OnClickListener{
      * 百度搜索图片
      */
     private void postBaiduAllPics(String searchWord, int pageNum) {
+        swipeRefreshLayout.setRefreshing(true);
         if (postBaiduPicsTask == null)
             postBaiduPicsTask = new GetBaiduPicsTask(getActivity(), jsonHandler);
         postBaiduPicsTask.execute(searchWord, pageNum);
