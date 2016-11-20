@@ -21,25 +21,41 @@ import android.support.v4.app.FragmentManager;
 
 import com.ran.pics.R;
 import com.ran.pics.activity.fragment.ImageCollectionFragment;
+import com.ran.pics.activity.fragment.ImageOperateFloatFragment;
 
-public class ImageCollectionActivity extends BaseActivity {
+import butterknife.ButterKnife;
+
+public class ImageCollectionActivity extends BaseActivity
+        implements ImageCollectionFragment.OnCollectLongClickListener{
     private ImageCollectionFragment collectionFragment;
+    private ImageOperateFloatFragment imageOperateFloatFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
+        ButterKnife.bind(this);
 
         initView();
         initEvent();
     }
 
     private void initView() {
-        collectionFragment = ImageCollectionFragment.newInstance();
+        collectionFragment = ImageCollectionFragment.newInstance(this);
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentReplace, collectionFragment).commit();
     }
 
     private void initEvent() {
+    }
+
+    @Override
+    public void onLongClick() {
+        if (imageOperateFloatFragment == null) {
+            imageOperateFloatFragment = ImageOperateFloatFragment.getInstance(collectionFragment);
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.llFloatContainer, imageOperateFloatFragment).commit();
+        }
+        imageOperateFloatFragment.startAnimation();
     }
 }

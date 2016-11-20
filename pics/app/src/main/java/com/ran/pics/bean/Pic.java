@@ -1,5 +1,6 @@
 package com.ran.pics.bean;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Pic implements Serializable {
@@ -15,6 +16,7 @@ public class Pic implements Serializable {
     private String recommend;
     private String love;
     private String thumbnail;
+	private File localFile;
 
     public boolean isChecked() {
         return isChecked;
@@ -111,5 +113,12 @@ public class Pic implements Serializable {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	
+
+	public File getLocalFile() {
+		return localFile;
+	}
+
+	public void setLocalFile(File localFile) {
+		this.localFile = localFile;
+	}
 }

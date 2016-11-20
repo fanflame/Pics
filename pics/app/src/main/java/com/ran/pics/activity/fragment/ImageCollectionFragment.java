@@ -36,6 +36,7 @@ import com.ran.pics.util.Constant;
 import com.ran.pics.util.ToastUtil;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,21 +45,28 @@ import butterknife.ButterKnife;
 public class ImageCollectionFragment extends Fragment
         implements GetCollectionPicsTask.OnGetCollectionPicsListener
         , OnDeletePicsCompleteListener
-        , ImageCollectionAdapter.OnItemListener {
+        , ImageCollectionAdapter.OnItemListener
+        , ImageOperateFloatFragment.OnFloatFragmentClickListener {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.gvRefresh)
     RecyclerView mPullRefreshGridView;
     private ImageCollectionAdapter gridAdapter;
     private View rootView;
-//    private CircularProgressBar progressBar;
+    //    private CircularProgressBar progressBar;
     private GetCollectionPicsTask collectionPicsTask;
     private DeletePicsTask deletePicsTask;
 
     private ArrayList<Pic> allPics;
+    private OnCollectLongClickListener onCollectLongClickListener;
 
-    public static ImageCollectionFragment newInstance() {
+    public interface OnCollectLongClickListener {
+        void onLongClick();
+    }
+
+    public static ImageCollectionFragment newInstance(OnCollectLongClickListener onCollectLongClickListener) {
         final ImageCollectionFragment f = new ImageCollectionFragment();
+        f.onCollectLongClickListener = onCollectLongClickListener;
         return f;
     }
 
@@ -90,7 +98,7 @@ public class ImageCollectionFragment extends Fragment
     private void initView(LayoutInflater inflater, ViewGroup container) {
         rootView = inflater.inflate(R.layout.fragment_image_collection,
                 container, false);
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this, rootView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         mPullRefreshGridView.setLayoutManager(gridLayoutManager);
 //        progressBar = (CircularProgressBar) rootView
@@ -102,7 +110,7 @@ public class ImageCollectionFragment extends Fragment
         mPullRefreshGridView.setAdapter(gridAdapter);
     }
 
-    private void initEvent(){
+    private void initEvent() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -153,5 +161,26 @@ public class ImageCollectionFragment extends Fragment
     @Override
     public void onItemLongClick() {
         gridAdapter.setShowCheckBox(!gridAdapter.getShowCheckBox());
+        if (onCollectLongClickListener != null) {
+            onCollectLongClickListener.onLongClick();
+        }
+    }
+
+    @Override
+    public void onFloatFragmentDeleteClick() {
+        ArrayList<Pic> checkedList = gridAdapter.getPicCheckedList();
+        if(checkedList != null){
+            //TODO 是否放到线程中
+            Iterator<Pic> picIterator = checkedList.iterator();
+            Pic picTemp;
+            while (picIterator.hasNext()){
+                picTemp = picIterator.next();
+                picTemp.getLocalFile().delete();
+            }
+            gridAdapter.deleteCheckedList();
+        }else{
+            ToastUtil.show(getContext(),"您为选中任何一张图片");
+        }
+
     }
 }

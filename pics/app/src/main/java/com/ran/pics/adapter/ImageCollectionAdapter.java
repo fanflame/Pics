@@ -133,6 +133,14 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
         return picCheckedList;
     }
 
+    public void deleteCheckedList(){
+        if(picCheckedList != null){
+            picList.removeAll(picCheckedList);
+            picCheckedList.clear();
+            notifyDataSetChanged();
+        }
+    }
+
     public void setShowCheckBox(boolean isShowCheckBox) {
         this.isShowCheckBox = isShowCheckBox;
         if (!isShowCheckBox && picCheckedList != null)

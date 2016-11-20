@@ -72,6 +72,7 @@ public class GetCollectionPicsTask {
                 picTemp = new Pic();
                 picTemp.setLinkUrl("file://"+files[i].getAbsolutePath());
                 picTemp.setName(files[i].getName());
+                picTemp.setLocalFile(files[i]);
                 resultList.add(picTemp);
             }
             return resultList;
