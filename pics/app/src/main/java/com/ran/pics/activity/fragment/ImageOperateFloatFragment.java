@@ -1,8 +1,11 @@
 package com.ran.pics.activity.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +21,8 @@ import butterknife.OnClick;
  * Created by fanyiran on 16/11/20.
  */
 
-public class ImageOperateFloatFragment extends Fragment{
+public class ImageOperateFloatFragment extends Fragment {
+    private final int ANIMATION_DURATION = 500;
     @BindView(R.id.tvDelete)
     TextView tvDelete;
 
@@ -47,11 +51,43 @@ public class ImageOperateFloatFragment extends Fragment{
         }
     }
 
-    public void setOnFloatFragmentClickListener(OnFloatFragmentClickListener onFloatFragmentClickListener){
-        this.onFloatFragmentClickListener = onFloatFragmentClickListener;
+    public void startAnimation(){
+        if(isVisible()){
+//            animate();
+        }else{
+
+        }
     }
 
-    public void startAnimation(){
+    private void animate(final float start, final float end){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(getView(),"translationY",start,end);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                float fraction = animation.getAnimatedFraction();
+//                getView().setTranslationY(start + fraction * getView().getHeight());
+//            }
+//        });
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                if(start > end){
 
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if(start > end){
+
+                }else{
+
+                }
+            }
+        });
+        animator.setDuration(ANIMATION_DURATION);
+        animator.start();
     }
 }

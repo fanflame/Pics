@@ -50,6 +50,7 @@ public class BaseActivity extends FragmentActivity {
         }
         ButterKnife.bind(this);
     }
+
     @Override
     public void finish() {
         overridePendingTransition(R.anim.right_in, R.anim.left_out);

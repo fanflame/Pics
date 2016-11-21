@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright (C) 2012 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +16,9 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppTheme" parent="android:Theme" />
-
-    <style name="AppTheme.FullScreen" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/theme_bg</item>
     </style>
 
     <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme.Holo">
@@ -62,11 +58,17 @@
     <style name="tv_styles" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/blue_button_background</item>
         <item name="android:textSize">14sp</item>
         <item name="android:padding">8dp</item>
-        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:textColor">@color/theme_content_color</item>
     </style>
+
+    <style name="tv_dialog_title" parent="tv_styles">
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/shape_dialog_title</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="cb_styles" parent="android:Widget.CompoundButton.CheckBox">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -81,7 +83,7 @@
         <item name="android:textSize">@dimen/textsize_et</item>
         <item name="android:textColorHint">@color/et_hint_color</item>
         <item name="android:padding">@dimen/et_padding</item>
-        <item name="android:textColor">@color/material_blue_grey_95</item>
+        <item name="android:textColor">@color/theme_content_color</item>
     </style>
 
     <style name="gv_styles" parent="android:Widget.GridView">
@@ -102,5 +104,17 @@
         <item name="android:background">@drawable/shape_textview</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/theme_content_color</item>
+        <item name="android:textSize">@dimen/dialog_btn</item>
     </style>
+
+    <style name="btn_dialog_left" parent="btn">
+        <item name="android:background">@drawable/shape_btn_dialog_left</item>
+    </style>
+
+    <style name="btn_dialog_right" parent="btn">
+        <item name="android:background">@drawable/shape_btn_dialog_right</item>
+    </style>
+
 </resources>

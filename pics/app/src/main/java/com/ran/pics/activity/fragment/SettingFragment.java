@@ -81,7 +81,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
                 getActivity().startActivity(intent);
                 break;
             case R.id.tvClearCache:
-                Utils.clearCache(getActivity());
+                Utils.clearCache(getFragmentManager());
                 break;
             case R.id.tvAboutMe:
                 intent = new Intent(getActivity(), AboutActivity.class);

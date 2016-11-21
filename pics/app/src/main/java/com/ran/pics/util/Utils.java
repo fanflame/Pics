@@ -9,14 +9,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.ran.pics.bean.Pic;
+import com.ran.pics.dialog.TipsDialogFragment;
 import com.ran.pics.util.imageload.ImageLoaderUtils;
-import com.ran.pics.view.alertdialog.SweetAlertDialog;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -221,44 +222,14 @@ public class Utils {
                 .getName().startsWith(picName);
     }
 
-    public static void clearCache(Context context) {
-        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("清除缓存图片?")
-                .setContentText("确定这么狠心么.")
-                .setCancelText("取消")
-                .setConfirmText("确定")
-                .showCancelButton(true)
-                .setCancelClickListener(
-                        new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                // reuse previous dialog instance, keep widget
-                                // user state, reset them if you need
-                                sDialog.setTitleText("取消!")
-                                        .setContentText("您的缓存图片还很安全 :)")
-                                        .setConfirmText("OK")
-                                        .showCancelButton(false)
-                                        .setCancelClickListener(null)
-                                        .setConfirmClickListener(null)
-                                        .changeAlertType(
-                                                SweetAlertDialog.ERROR_TYPE);
-                            }
-                        })
-                .setConfirmClickListener(
-                        new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                ImageLoaderUtils.getInstance().clearDiskCache();
-                                sDialog.setTitleText("删除成功!")
-                                        .setContentText("缓存图片删除成功!")
-                                        .setConfirmText("OK")
-                                        .showCancelButton(false)
-                                        .setCancelClickListener(null)
-                                        .setConfirmClickListener(null)
-                                        .changeAlertType(
-                                                SweetAlertDialog.SUCCESS_TYPE);
-                            }
-                        }).show();
+    public static void clearCache(FragmentManager fragmentManager) {
+        TipsDialogFragment.getInstance(new TipsDialogFragment.OnClickListenerAdapter() {
+
+            @Override
+            public void onConfirmClick() {
+                ImageLoaderUtils.getInstance().clearDiskCache();
+            }
+        },"提示","确定要清除缓存图片吗？").show(fragmentManager,"");
     }
 
 

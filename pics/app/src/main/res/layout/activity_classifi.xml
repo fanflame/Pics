@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:background="@drawable/universalbg">
+    android:focusableInTouchMode="true">
     <EditText
         style="@style/et_styles"
         android:hint="你想要的这里都有"

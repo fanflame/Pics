@@ -18,4 +18,5 @@
 <resources>
     <dimen name="splash_title">18dp</dimen>
     <dimen name="splash_tips">14dp</dimen>
+    <dimen name="dialog_btn">16dp</dimen>
 </resources>
