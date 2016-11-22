@@ -38,7 +38,7 @@
     <color name="bottom_back_color">#e7e7e7</color>
 
     <color name="et_hint_color">#cccccc</color>
-    <color name="float_bg">#33cccccc</color>
+    <color name="float_bg">#99cccccc</color>
 
     <color name="theme_bg">#494953</color>
     <color name="theme_dialog_bg">#6A7EFC</color>

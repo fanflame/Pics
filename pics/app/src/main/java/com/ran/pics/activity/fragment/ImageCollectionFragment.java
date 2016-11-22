@@ -51,6 +51,7 @@ public class ImageCollectionFragment extends Fragment
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.gvRefresh)
     RecyclerView mPullRefreshGridView;
+
     private ImageCollectionAdapter gridAdapter;
     private View rootView;
     //    private CircularProgressBar progressBar;

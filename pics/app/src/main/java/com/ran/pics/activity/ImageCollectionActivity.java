@@ -44,6 +44,8 @@ public class ImageCollectionActivity extends BaseActivity
         collectionFragment = ImageCollectionFragment.newInstance(this);
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentReplace, collectionFragment).commit();
+        imageOperateFloatFragment = ImageOperateFloatFragment.getInstance(collectionFragment);
+        manager.beginTransaction().replace(R.id.llFloatContainer, imageOperateFloatFragment).commit();
     }
 
     private void initEvent() {
@@ -51,11 +53,6 @@ public class ImageCollectionActivity extends BaseActivity
 
     @Override
     public void onLongClick() {
-        if (imageOperateFloatFragment == null) {
-            imageOperateFloatFragment = ImageOperateFloatFragment.getInstance(collectionFragment);
-            FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.llFloatContainer, imageOperateFloatFragment).commit();
-        }
         imageOperateFloatFragment.startAnimation();
     }
 }

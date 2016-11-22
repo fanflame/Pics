@@ -1,12 +1,16 @@
 package com.ran.pics.activity;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 
 import com.baidu.appx.BDInterstitialAd;
 import com.ran.pics.R;
 
 import butterknife.BindString;
+import butterknife.BindView;
 
 /**
  * Created by fanyiran on 16/11/13.
@@ -14,11 +18,14 @@ import butterknife.BindString;
 
 public class SplashActivity extends BaseActivity {
     private final int DELAY_JUMP = 2000;
+    private final int ANIMATION_DURATION = 1000;
     private Handler handler;
     @BindString(R.string.baidu_app_key)
     String baiduAppKey;
     @BindString(R.string.baidu_ad_splash_id)
     String baiduAdId;
+    @BindView(R.id.llContainer)
+    LinearLayout llContainer;
 
     private BDInterstitialAd splashAd;
 
@@ -31,6 +38,14 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void init() {
+        llContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                llContainer.setTranslationY(llContainer.getHeight());
+                llContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                startAnimation();
+            }
+        });
         handler = new Handler();
         //创建开屏广告
         splashAd = new BDInterstitialAd(this, baiduAppKey, baiduAdId);
@@ -105,5 +120,11 @@ public class SplashActivity extends BaseActivity {
             splashAd = null;
         }
 
+    }
+
+    public void startAnimation(){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(llContainer,"translationY",llContainer.getHeight(),0);
+        animator.setDuration(ANIMATION_DURATION);
+        animator.start();
     }
 }
