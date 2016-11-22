@@ -39,7 +39,7 @@
     <dimen name="header_footer_top_bottom_padding">12dp</dimen>
 
     <dimen name="un_radius">0dp</dimen>
-    <dimen name="btn_radius">5dp</dimen>
+    <dimen name="btn_radius">3dp</dimen>
     <dimen name="textsize_tab">18sp</dimen>
     <dimen name="textsize_et">16sp</dimen>
     <dimen name="et_padding">8dp</dimen>

@@ -21,6 +21,12 @@
         <item name="android:windowBackground">@color/theme_bg</item>
     </style>
 
+    <style name="TransTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme.Holo">
         <item name="cpbStyle">@style/CircularProgressBar</item>
     </style>
@@ -60,7 +66,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
         <item name="android:padding">8dp</item>
-        <item name="android:textColor">@color/theme_content_color</item>
+        <item name="android:textColor">@color/theme_text_color</item>
     </style>
 
     <style name="tv_dialog_title" parent="tv_styles">
@@ -83,7 +89,7 @@
         <item name="android:textSize">@dimen/textsize_et</item>
         <item name="android:textColorHint">@color/et_hint_color</item>
         <item name="android:padding">@dimen/et_padding</item>
-        <item name="android:textColor">@color/theme_content_color</item>
+        <item name="android:textColor">@color/theme_text_color</item>
     </style>
 
     <style name="gv_styles" parent="android:Widget.GridView">
@@ -105,7 +111,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/theme_content_color</item>
+        <item name="android:textColor">@color/theme_text_color</item>
         <item name="android:textSize">@dimen/dialog_btn</item>
     </style>
 

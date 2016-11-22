@@ -98,7 +98,7 @@
             android:name="com.ran.pics.activity.AboutActivity"
             android:label="@string/app_name"
             android:parentActivityName="com.ran.pics.activity.HomeActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/TransTheme">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

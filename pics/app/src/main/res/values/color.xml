@@ -40,9 +40,10 @@
     <color name="et_hint_color">#cccccc</color>
     <color name="float_bg">#33cccccc</color>
 
-    <color name="theme_bg">#000000</color>
-    <color name="theme_dialog_bg">#222222</color>
-    <color name="theme_content_color">#E1F6F4</color>
-    <color name="theme_content_color_select">#166678</color>
+    <color name="theme_bg">#494953</color>
+    <color name="theme_dialog_bg">#6A7EFC</color>
+    <color name="theme_text_color">#EDF2F6</color>
+    <color name="theme_text_color_select">#6A7EFC</color>
+    <color name="theme_border">#FF5656</color>
 
 </resources>
