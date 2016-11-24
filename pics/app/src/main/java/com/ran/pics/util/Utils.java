@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.ran.pics.bean.Pic;
 import com.ran.pics.dialog.TipsDialogFragment;
 import com.ran.pics.util.imageload.ImageLoaderUtils;
 
@@ -27,7 +26,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -60,20 +58,20 @@ public class Utils {
     }
 
 
-    public static void getPicThumbnail(ArrayList<Pic> picList) {
-        int size = picList.size();
-        Pic tempPic;
-        String linkUrl;
-        String[] tempStr;
-        String temp;
-        for (int i = 0; i < size; i++) {
-            tempPic = picList.get(i);
-            linkUrl = tempPic.getLinkUrl();
-            tempStr = linkUrl.split("\\.");
-            temp = tempStr[tempStr.length - 2];
-            tempPic.setThumbnail(linkUrl.replace(temp, temp + "t"));
-        }
-    }
+//    public static void getPicThumbnail(ArrayList<Pic> picList) {
+//        int size = picList.size();
+//        Pic tempPic;
+//        String linkUrl;
+//        String[] tempStr;
+//        String temp;
+//        for (int i = 0; i < size; i++) {
+//            tempPic = picList.get(i);
+//            linkUrl = tempPic.getLinkUrl();
+//            tempStr = linkUrl.split("\\.");
+//            temp = tempStr[tempStr.length - 2];
+//            tempPic.setThumbnail(linkUrl.replace(temp, temp + "t"));
+//        }
+//    }
 
     public static int getRandomRightPadding() {
         return Math.abs(new Random().nextInt()) % 50 + 30;

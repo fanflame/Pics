@@ -2,21 +2,21 @@ package com.ran.pics.activity.task;
 
 import android.content.Context;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+//import com.loopj.android.http.AsyncHttpClient;
+//import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class GetTieTuKuPicsTask {
 	private final String ONEPAGENUM = "30";
-	private JsonHttpResponseHandler jsonHandler;
-	private AsyncHttpClient client;
+//	private JsonHttpResponseHandler jsonHandler;
+//	private AsyncHttpClient client;
 	private Context context;
 
-	public GetTieTuKuPicsTask(Context context,
-			JsonHttpResponseHandler jsonHandler) {
-		this.context = context;
-		this.jsonHandler = jsonHandler;
-		client = new AsyncHttpClient();
-	}
+//	public GetTieTuKuPicsTask(Context context,
+//			JsonHttpResponseHandler jsonHandler) {
+//		this.context = context;
+//		this.jsonHandler = jsonHandler;
+//		client = new AsyncHttpClient();
+//	}
 
 	/**
 	 * 所有图片
@@ -60,7 +60,7 @@ public class GetTieTuKuPicsTask {
 	}
 
 	public void cancleTask() {
-		if (client != null)
-			client.cancelRequests(context, true);
+//		if (client != null)
+//			client.cancelRequests(context, true);
 	}
 }

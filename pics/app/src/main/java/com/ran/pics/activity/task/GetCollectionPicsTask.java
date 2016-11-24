@@ -69,11 +69,11 @@ public class GetCollectionPicsTask {
             ArrayList<Pic> resultList = new ArrayList<Pic>(size);
             Pic picTemp;
             for (int i = 0; i < size; i++) {
-                picTemp = new Pic();
-                picTemp.setLinkUrl("file://"+files[i].getAbsolutePath());
-                picTemp.setName(files[i].getName());
-                picTemp.setLocalFile(files[i]);
-                resultList.add(picTemp);
+//                picTemp = new Pic();
+//                picTemp.setLinkUrl("file://"+files[i].getAbsolutePath());
+//                picTemp.setName(files[i].getName());
+//                picTemp.setLocalFile(files[i]);
+//                resultList.add(picTemp);
             }
             return resultList;
         }

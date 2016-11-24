@@ -28,19 +28,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ran.pics.R;
 import com.ran.pics.activity.ImageSearchResultActivity;
 import com.ran.pics.activity.task.GetTieTuKeClassifiTask;
 import com.ran.pics.adapter.ImageClassifiGridAdapter;
 import com.ran.pics.application.UILApplication;
-import com.ran.pics.util.Constant;
 import com.ran.pics.util.ToastUtil;
-import com.ran.pics.util.tietuapi.JsonAnalyze;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 
 //分类
@@ -52,40 +45,40 @@ public class ImageClassifiGridFragment extends Fragment {
     private GetTieTuKeClassifiTask getTieTuKeClassifiTask;
     private ImageClassifiGridAdapter classifiGridAdapter;
 
-    private JsonHttpResponseHandler jsonHandler = new JsonHttpResponseHandler() {
-        @Override
-        public void onFailure(int statusCode, Header[] headers,
-                              String responseBody, Throwable e) {
-            swipeRefreshLayout.setRefreshing(false);
-            super.onFailure(statusCode, headers, responseBody, e);
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-            super.onFailure(statusCode, headers, throwable, errorResponse);
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            super.onFailure(statusCode, headers, throwable, errorResponse);
-        }
-
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            if (response.equals(Constant.ERROR_DENY)) {
-                ToastUtil.show(getActivity(), "网络不通哦亲！");
-                return;
-            }
-            if (response.toString().trim().equals("")) {
-                ToastUtil.show(getActivity(), "数据返回错误");
-                return;
-            }
-            classifiGridAdapter.setList(JsonAnalyze.parseAlbumJson(getActivity(), response.toString()));
-            super.onSuccess(statusCode, headers, response);
-        }
-
-        ;
-    };
+//    private JsonHttpResponseHandler jsonHandler = new JsonHttpResponseHandler() {
+//        @Override
+//        public void onFailure(int statusCode, Header[] headers,
+//                              String responseBody, Throwable e) {
+//            swipeRefreshLayout.setRefreshing(false);
+//            super.onFailure(statusCode, headers, responseBody, e);
+//        }
+//
+//        @Override
+//        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+//            super.onFailure(statusCode, headers, throwable, errorResponse);
+//        }
+//
+//        @Override
+//        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//            super.onFailure(statusCode, headers, throwable, errorResponse);
+//        }
+//
+//        @Override
+//        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//            if (response.equals(Constant.ERROR_DENY)) {
+//                ToastUtil.show(getActivity(), "网络不通哦亲！");
+//                return;
+//            }
+//            if (response.toString().trim().equals("")) {
+//                ToastUtil.show(getActivity(), "数据返回错误");
+//                return;
+//            }
+//            classifiGridAdapter.setList(JsonAnalyze.parseAlbumJson(getActivity(), response.toString()));
+//            super.onSuccess(statusCode, headers, response);
+//        }
+//
+//        ;
+//    };
 
     public static ImageClassifiGridFragment newInstance() {
         final ImageClassifiGridFragment f = new ImageClassifiGridFragment();
@@ -115,9 +108,9 @@ public class ImageClassifiGridFragment extends Fragment {
     }
 
     private void loadClassify() {
-        if (getTieTuKeClassifiTask == null)
-            getTieTuKeClassifiTask = new GetTieTuKeClassifiTask(getActivity(), jsonHandler);
-        getTieTuKeClassifiTask.execute();
+//        if (getTieTuKeClassifiTask == null)
+//            getTieTuKeClassifiTask = new GetTieTuKeClassifiTask(getActivity(), jsonHandler);
+//        getTieTuKeClassifiTask.execute();
     }
 
     private void initView(LayoutInflater inflater) {

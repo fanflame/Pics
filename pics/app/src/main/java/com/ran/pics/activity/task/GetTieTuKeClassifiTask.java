@@ -2,20 +2,17 @@ package com.ran.pics.activity.task;
 
 import android.content.Context;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
 public class GetTieTuKeClassifiTask {
-	private JsonHttpResponseHandler jsonHandler;
-	private AsyncHttpClient client;
+//	private JsonHttpResponseHandler jsonHandler;
+//	private AsyncHttpClient client;
 	private Context context;
-
-	public GetTieTuKeClassifiTask(Context context,
-                                  JsonHttpResponseHandler jsonHandler) {
-		this.context = context;
-		this.jsonHandler = jsonHandler;
-		client = new AsyncHttpClient();
-	}
+//
+//	public GetTieTuKeClassifiTask(Context context,
+//                                  JsonHttpResponseHandler jsonHandler) {
+//		this.context = context;
+//		this.jsonHandler = jsonHandler;
+//		client = new AsyncHttpClient();
+//	}
 
 	public void execute() {
 //		if (jsonHandler == null) {
@@ -33,7 +30,7 @@ public class GetTieTuKeClassifiTask {
 	}
 
 	public void cancleTask() {
-		if (client != null)
-			client.cancelRequests(context, true);
+//		if (client != null)
+//			client.cancelRequests(context, true);
 	}
 }

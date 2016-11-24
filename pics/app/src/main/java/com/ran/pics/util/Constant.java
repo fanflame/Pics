@@ -54,9 +54,11 @@ public class Constant {
 		 * pn:显示结果的页数;
 		 * rn:搜索结果显示条数(Record Number)，取值范围在10–100条之间，缺省设置rn=10
 		 */
-		public static final String URL_BAIDU = "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word=‘THESEARCHWORD’&cg=girl&pn=PAGENUM&rn=ONEPAGENUM&itg=0&z=0&fr=&width=WIDTH&height=HEIGHT&lm=-1&ic=0&s=0&st=-1&gsm=7107000078";
+//		public static final String URL_BAIDU = "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word=‘THESEARCHWORD’&cg=girl&pn=PAGENUM&rn=ONEPAGENUM&itg=0&z=0&fr=&width=WIDTH&height=HEIGHT&lm=-1&ic=0&s=0&st=-1&gsm=7107000078";
 //		public static final String URL_BAIDU = "http://image.baidu.com/i?tn=baiduimagejson&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=index&fr=&sf=1&fmq=&pv=&ic=0&nc=1&z=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&word=‘THESEARCHWORD’&rn=ONEPAGENUM&pn=PAGENUM&rsp=-1";
 //		public static final String URL_BAIDU = "http://image.baidu.com/i?tn=baiduimagejson&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1349413075627_R&pv=&ic=0&nc=1&z=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&word=THESEARCHWORD&rn=ONEPAGENUM&pn=PAGENUM";
+		public static final String URL_BAIDU = "avatarjson";
+		public static final String URL_BAIDU_BASE = "http://image.baidu.com/search/";
 	}
 	
 	/**

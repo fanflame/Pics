@@ -49,7 +49,7 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
         holder.ivShow.setLayoutParams(layoutParams);
         holder.tvName.setText(album.getName());
         ImageLoaderUtils.getInstance().loadImage(
-                album.getPicList().get(0).getUrl(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
+                album.getPicList().get(0).getThumbnail(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
                     @Override
                     public void onLoadingStarted() {
                         holder.ivProgressBar.setVisibility(View.VISIBLE);
