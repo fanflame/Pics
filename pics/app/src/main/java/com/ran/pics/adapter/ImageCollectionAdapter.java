@@ -1,6 +1,7 @@
 package com.ran.pics.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
     private int width;
     private boolean isShowCheckBox;
     private OnItemListener onItemListener;
+    private Context context;
 
 
     public interface OnItemListener{
@@ -62,7 +64,7 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
         layoutParams.width = width;
         layoutParams.height = width;
         holder.ivShow.setLayoutParams(layoutParams);
-        ImageLoaderUtils.getInstance().loadImage(
+        ImageLoaderUtils.getInstance().loadImage(context,
                 pic.getLinkUrl(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
                     @Override
                     public void onLoadingStarted() {

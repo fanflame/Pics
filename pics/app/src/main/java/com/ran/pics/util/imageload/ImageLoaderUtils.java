@@ -1,5 +1,6 @@
 package com.ran.pics.util.imageload;
 
+import android.content.Context;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import java.io.File;
 public abstract class ImageLoaderUtils {
 
     public static ImageLoaderUtils getInstance(){
-        return UILImageLoaderUtils.getInstance();
+        return GlideLoaderUtils.getInstance();
     }
 
     public interface OnLoadListener{
@@ -20,8 +21,8 @@ public abstract class ImageLoaderUtils {
         void onLoadingComplete();
         void onProgressUpdate();
     }
-    abstract public void loadImage(String imgUrl, ImageView imageView, final OnLoadListener onLoadListener);
-    abstract public void loadImage(String imgUrl, ImageView imageView);
+    abstract public void loadImage(Context context, String imgUrl, ImageView imageView, final OnLoadListener onLoadListener);
+    abstract public void loadImage(Context context,String imgUrl, ImageView imageView);
     abstract public void cancelLoad(ImageView imageView);
     abstract public File getDiskCache(String imgUrl);
     abstract public void resume();

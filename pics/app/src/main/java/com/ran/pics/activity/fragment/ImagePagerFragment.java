@@ -85,7 +85,7 @@ public class ImagePagerFragment extends Fragment {
 			final ImageView spinner = (ImageView) imageLayout
 					.findViewById(R.id.progressBar);
 
-			ImageLoaderUtils.getInstance().loadImage(imageUrls.get(position), imageView, new ImageLoaderUtils.OnLoadListener() {
+			ImageLoaderUtils.getInstance().loadImage(getActivity(),imageUrls.get(position), imageView, new ImageLoaderUtils.OnLoadListener() {
 				@Override
 				public void onLoadingStarted() {
 					spinner.setVisibility(View.VISIBLE);

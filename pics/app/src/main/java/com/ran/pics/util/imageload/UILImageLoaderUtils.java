@@ -1,5 +1,6 @@
 package com.ran.pics.util.imageload;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class UILImageLoaderUtils extends ImageLoaderUtils {
         return ImageLoaderHolder.loader;
     }
 
+
     private UILImageLoaderUtils() {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 UILApplication.getInstance()).threadPriority(Thread.NORM_PRIORITY - 2)
@@ -58,7 +60,7 @@ public class UILImageLoaderUtils extends ImageLoaderUtils {
     }
 
     @Override
-    public void loadImage(String imgUrl, ImageView imageView, final OnLoadListener onLoadListener) {
+    public void loadImage(Context context, String imgUrl, ImageView imageView, final OnLoadListener onLoadListener) {
         ImageLoader.getInstance().displayImage(
                 imgUrl, imageView, options,
                 new SimpleImageLoadingListener() {
@@ -110,7 +112,7 @@ public class UILImageLoaderUtils extends ImageLoaderUtils {
     }
 
     @Override
-    public void loadImage(String imgUrl, ImageView imageView) {
+    public void loadImage(Context context, String imgUrl, ImageView imageView) {
         ImageLoader.getInstance().displayImage(imgUrl, imageView,
                 options);
     }

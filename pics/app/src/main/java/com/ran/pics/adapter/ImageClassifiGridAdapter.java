@@ -48,7 +48,7 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
         layoutParams.height = width;
         holder.ivShow.setLayoutParams(layoutParams);
         holder.tvName.setText(album.getName());
-        ImageLoaderUtils.getInstance().loadImage(
+        ImageLoaderUtils.getInstance().loadImage(activity,
                 album.getPicList().get(0).getThumbnail(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
                     @Override
                     public void onLoadingStarted() {

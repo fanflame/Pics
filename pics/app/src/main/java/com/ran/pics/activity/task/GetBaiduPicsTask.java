@@ -51,8 +51,15 @@ public class GetBaiduPicsTask {
 		optionsMap.put("cg","girl");
 		optionsMap.put("pn",pageNum+"");
 		optionsMap.put("rn",ONEPAGENUM+"");
-		optionsMap.put("width","768");
-		optionsMap.put("height","1024");
+		optionsMap.put("width","1080");
+		optionsMap.put("height","1920");
+		optionsMap.put("itg","0");
+		optionsMap.put("z","0");
+		optionsMap.put("lm","-1");
+		optionsMap.put("ic","0");
+		optionsMap.put("s","0");
+		optionsMap.put("st","-1");
+		optionsMap.put("gsm","7107000078");
 		BaiduPicsService service = retrofit.create(BaiduPicsService.class);
 		Call<BaiduJson> repos = service.listRepos(optionsMap);
 		repos.enqueue(new Callback<BaiduJson>() {

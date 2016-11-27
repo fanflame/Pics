@@ -75,7 +75,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         layoutParams.height = width;
 //        holder.imageView.setLayoutParams(layoutParams);
 
-        ImageLoaderUtils.getInstance().loadImage(picList.get(position).getThumbnail(), holder.imageView, new ImageLoaderUtils.OnLoadListener() {
+        ImageLoaderUtils.getInstance().loadImage(context,picList.get(position).getThumbnail(), holder.imageView, new ImageLoaderUtils.OnLoadListener() {
             @Override
             public void onLoadingStarted() {
                 holder.progressBar.setVisibility(View.VISIBLE);
@@ -117,9 +117,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         holder.tvFileSize.setVisibility(View.GONE);
 //        holder.tvDownloadNum.setText(adInfo.getDownloadNum());
 //        holder.tvFileSize.setText(adInfo.getFileSize());
-        ImageLoaderUtils.getInstance().loadImage(
+        ImageLoaderUtils.getInstance().loadImage(context,
                 adInfo.getImageUrl(), holder.imageView, null);
-        ImageLoaderUtils.getInstance().loadImage(
+        ImageLoaderUtils.getInstance().loadImage(context,
                 adInfo.getIconUrl(), holder.icon, null);
     }
 

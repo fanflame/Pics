@@ -32,6 +32,7 @@ import com.ran.pics.view.ScaleAnimationImageView;
 public class ImageDetailFragment extends Fragment {
     private static final String IMAGE_DATA_EXTRA = "resId";
     private static final String PIC = "pic";
+    public static final int DETAIL_IMG_TAG = R.id.tag_img_detail;
 
     private int mImageNum;
     private ScaleAnimationImageView mImageView;
@@ -83,7 +84,7 @@ public class ImageDetailFragment extends Fragment {
     private void initView(View v){
         mImageView = (ScaleAnimationImageView) v.findViewById(R.id.imageView);
         mImageView.setSingleTapListener(singleTapListener);
-        mImageView.setTag(pic);
+        mImageView.setTag(DETAIL_IMG_TAG,pic);
     }
 
     private void initEvent(){
@@ -94,7 +95,7 @@ public class ImageDetailFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ImageLoaderUtils.getInstance().loadImage(pic.getLinkUrl(), mImageView);
+        ImageLoaderUtils.getInstance().loadImage(getActivity(),pic.getLinkUrl(), mImageView);
         if (OnClickListener.class.isInstance(getActivity())
                 && Utils.hasActionBar()) {
             mImageView.setOnClickListener((OnClickListener) getActivity());
