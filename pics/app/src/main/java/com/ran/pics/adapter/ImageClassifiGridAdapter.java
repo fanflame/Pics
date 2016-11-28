@@ -9,26 +9,24 @@ import android.widget.TextView;
 
 import com.ran.pics.R;
 import com.ran.pics.application.UILApplication;
-import com.ran.pics.bean.Album;
-import com.ran.pics.util.imageload.ImageLoaderUtils;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by fanyiran on 15/5/9.
  */
 public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifiGridAdapter.Holder> {
-    private ArrayList<Album> albumArrayList;
+    private ArrayList<String> albumArrayList;
     private int width;
     private Activity activity;
 
     public ImageClassifiGridAdapter(Activity activity) {
         this.activity = activity;
         width = UILApplication.getPicWidth(activity);
-        ;
     }
 
-    public void setList(ArrayList<Album> albumArrayList) {
+    public void setList(ArrayList<String> albumArrayList) {
         this.albumArrayList = albumArrayList;
         this.notifyDataSetChanged();
     }
@@ -42,34 +40,34 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
 
     @Override
     public void onBindViewHolder(final Holder holder, int position) {
-        Album album = albumArrayList.get(position);
+        String album = albumArrayList.get(position);
         ViewGroup.LayoutParams layoutParams = holder.ivShow.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = width;
         holder.ivShow.setLayoutParams(layoutParams);
-        holder.tvName.setText(album.getName());
-        ImageLoaderUtils.getInstance().loadImage(activity,
-                album.getPicList().get(0).getThumbnail(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
-                    @Override
-                    public void onLoadingStarted() {
-                        holder.ivProgressBar.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String failMessage) {
-                        holder.ivProgressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onLoadingComplete() {
-                        holder.ivProgressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onProgressUpdate() {
-
-                    }
-                });
+//        holder.tvName.setText(album.getName());
+//        ImageLoaderUtils.getInstance().loadImage(activity,
+//                album.getPicList().get(0).getThumbnail(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
+//                    @Override
+//                    public void onLoadingStarted() {
+//                        holder.ivProgressBar.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    @Override
+//                    public void onLoadingFailed(String failMessage) {
+//                        holder.ivProgressBar.setVisibility(View.GONE);
+//                    }
+//
+//                    @Override
+//                    public void onLoadingComplete() {
+//                        holder.ivProgressBar.setVisibility(View.GONE);
+//                    }
+//
+//                    @Override
+//                    public void onProgressUpdate() {
+//
+//                    }
+//                });
     }
 
     @Override

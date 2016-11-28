@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011-2014 Sergey Tarasevich
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.ran.pics.R;
 import com.ran.pics.activity.ImageSearchResultActivity;
-import com.ran.pics.activity.task.GetTieTuKeClassifiTask;
 import com.ran.pics.adapter.ImageClassifiGridAdapter;
 import com.ran.pics.application.UILApplication;
 import com.ran.pics.util.ToastUtil;
@@ -42,43 +41,8 @@ public class ImageClassifiGridFragment extends Fragment {
     private RecyclerView gvRefresh;
     private EditText etSearch;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private GetTieTuKeClassifiTask getTieTuKeClassifiTask;
     private ImageClassifiGridAdapter classifiGridAdapter;
 
-//    private JsonHttpResponseHandler jsonHandler = new JsonHttpResponseHandler() {
-//        @Override
-//        public void onFailure(int statusCode, Header[] headers,
-//                              String responseBody, Throwable e) {
-//            swipeRefreshLayout.setRefreshing(false);
-//            super.onFailure(statusCode, headers, responseBody, e);
-//        }
-//
-//        @Override
-//        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-//            super.onFailure(statusCode, headers, throwable, errorResponse);
-//        }
-//
-//        @Override
-//        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//            super.onFailure(statusCode, headers, throwable, errorResponse);
-//        }
-//
-//        @Override
-//        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//            if (response.equals(Constant.ERROR_DENY)) {
-//                ToastUtil.show(getActivity(), "网络不通哦亲！");
-//                return;
-//            }
-//            if (response.toString().trim().equals("")) {
-//                ToastUtil.show(getActivity(), "数据返回错误");
-//                return;
-//            }
-//            classifiGridAdapter.setList(JsonAnalyze.parseAlbumJson(getActivity(), response.toString()));
-//            super.onSuccess(statusCode, headers, response);
-//        }
-//
-//        ;
-//    };
 
     public static ImageClassifiGridFragment newInstance() {
         final ImageClassifiGridFragment f = new ImageClassifiGridFragment();
@@ -108,9 +72,25 @@ public class ImageClassifiGridFragment extends Fragment {
     }
 
     private void loadClassify() {
-//        if (getTieTuKeClassifiTask == null)
-//            getTieTuKeClassifiTask = new GetTieTuKeClassifiTask(getActivity(), jsonHandler);
-//        getTieTuKeClassifiTask.execute();
+        swipeRefreshLayout.setRefreshing(true);
+//        if (postBaiduPicsTask == null)
+//            postBaiduPicsTask = new GetBaiduPicsTask(getActivity(), new GetBaiduPicsTask.OnCompleteListener() {
+//                @Override
+//                public void onFailure() {
+//                    swipeRefreshLayout.setRefreshing(false);
+//                }
+//
+//                @Override
+//                public void onSuccess(ArrayList<? extends Pic> picList) {
+////                    if (allPics == null) {
+////                        allPics = new SparseArray<>();
+////                    }
+////                    allPics.put(currentPageNum, picList);
+//                    gridAdapter.addData(picList);
+//                    swipeRefreshLayout.setRefreshing(false);
+//                }
+//            });
+//        postBaiduPicsTask.execute(searchWord, pageNum);
     }
 
     private void initView(LayoutInflater inflater) {
@@ -151,15 +131,13 @@ public class ImageClassifiGridFragment extends Fragment {
 
     private void initData() {
         classifiGridAdapter = new ImageClassifiGridAdapter(getActivity());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         gvRefresh.setLayoutManager(gridLayoutManager);
         gvRefresh.setAdapter(classifiGridAdapter);
     }
 
     @Override
     public void onDestroyView() {
-        if (getTieTuKeClassifiTask != null)
-            getTieTuKeClassifiTask.cancleTask();
         super.onDestroyView();
     }
 }

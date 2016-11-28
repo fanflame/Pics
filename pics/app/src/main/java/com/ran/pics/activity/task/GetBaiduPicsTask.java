@@ -53,25 +53,13 @@ public class GetBaiduPicsTask {
 		optionsMap.put("rn",ONEPAGENUM+"");
 		optionsMap.put("width","1080");
 		optionsMap.put("height","1920");
-		optionsMap.put("itg","0");
-		optionsMap.put("z","0");
-		optionsMap.put("lm","-1");
-		optionsMap.put("ic","0");
-		optionsMap.put("s","0");
-		optionsMap.put("st","-1");
-		optionsMap.put("gsm","7107000078");
+//		optionsMap.put("itg","0");／
 		BaiduPicsService service = retrofit.create(BaiduPicsService.class);
 		Call<BaiduJson> repos = service.listRepos(optionsMap);
 		repos.enqueue(new Callback<BaiduJson>() {
 			@Override
 			public void onResponse(Call<BaiduJson> call, Response<BaiduJson> response) {
 				ArrayList<? extends Pic> picListTemp = (ArrayList<? extends Pic>) response.body().getImgs();
-//				try {
-//					picListTemp = JsonAnalyze.getBaiduAllPic(new JSONObject(response.body()),context);
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-
 				if(onCompleteListener != null)
 					onCompleteListener.onSuccess(picListTemp);
 			}
