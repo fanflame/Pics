@@ -30,9 +30,14 @@ import android.widget.TextView;
 
 import com.ran.pics.R;
 import com.ran.pics.activity.ImageSearchResultActivity;
+import com.ran.pics.activity.task.GetBaiduPicsTask;
 import com.ran.pics.adapter.ImageClassifiGridAdapter;
 import com.ran.pics.application.UILApplication;
+import com.ran.pics.bean.Album;
+import com.ran.pics.bean.Pic;
 import com.ran.pics.util.ToastUtil;
+
+import java.util.ArrayList;
 
 
 //分类
@@ -42,6 +47,7 @@ public class ImageClassifiGridFragment extends Fragment {
     private EditText etSearch;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageClassifiGridAdapter classifiGridAdapter;
+    private ArrayList<GetBaiduPicsTask> getBaiduPicsTasks;
 
 
     public static ImageClassifiGridFragment newInstance() {
@@ -67,30 +73,64 @@ public class ImageClassifiGridFragment extends Fragment {
             initEvent();
             initData();
         }
-        loadClassify();
+        ArrayList<Album> albumList = new ArrayList<>();
+        Album album = new Album();
+        album.setAlbumName("范冰冰");
+        albumList.add(album);
+        album = new Album();
+        album.setAlbumName("李冰冰");
+        albumList.add(album);
+        album = new Album();
+        album.setAlbumName("周杰伦");
+        albumList.add(album);
+        album = new Album();
+        album.setAlbumName("黄渤");
+        albumList.add(album);
+        album = new Album();
+        album.setAlbumName("葛优");
+        albumList.add(album);
+        album = new Album();
+        album.setAlbumName("推女郎");
+        albumList.add(album);
+        album = new Album();
+        album.setAlbumName("性感");
+        albumList.add(album);
+        loadClassify(albumList);
         return rootView;
     }
 
-    private void loadClassify() {
-        swipeRefreshLayout.setRefreshing(true);
-//        if (postBaiduPicsTask == null)
-//            postBaiduPicsTask = new GetBaiduPicsTask(getActivity(), new GetBaiduPicsTask.OnCompleteListener() {
-//                @Override
-//                public void onFailure() {
+    private void loadClassify(final ArrayList<Album> keyWordList) {
+        classifiGridAdapter.setList(keyWordList);
+        if(keyWordList == null || keyWordList.size() == 0)
+            return;
+//        swipeRefreshLayout.setRefreshing(true);
+        if(getBaiduPicsTasks == null){
+            getBaiduPicsTasks = new ArrayList<>();
+        }else {
+            getBaiduPicsTasks.clear();
+        }
+        int size = keyWordList.size();
+        for (int i = 0;i< size;i++){
+            final int index = i;
+            GetBaiduPicsTask postBaiduPicsTask = new GetBaiduPicsTask(getActivity(), new GetBaiduPicsTask.OnCompleteListener() {
+                @Override
+                public void onFailure() {
 //                    swipeRefreshLayout.setRefreshing(false);
-//                }
-//
-//                @Override
-//                public void onSuccess(ArrayList<? extends Pic> picList) {
-////                    if (allPics == null) {
-////                        allPics = new SparseArray<>();
-////                    }
-////                    allPics.put(currentPageNum, picList);
-//                    gridAdapter.addData(picList);
-//                    swipeRefreshLayout.setRefreshing(false);
-//                }
-//            });
-//        postBaiduPicsTask.execute(searchWord, pageNum);
+                }
+
+                @Override
+                public void onSuccess(ArrayList<? extends Pic> picList) {
+                    if(picList.size() == 0)
+                        return;
+                    Album album = keyWordList.get(index);
+                    album.setPicPath(picList.get(0).getThumbnail());
+                    classifiGridAdapter.insert(album,index);
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+            postBaiduPicsTask.execute(keyWordList.get(index).getAlbumName(),1,1);
+            getBaiduPicsTasks.add(postBaiduPicsTask);
+        }
     }
 
     private void initView(LayoutInflater inflater) {
@@ -139,5 +179,10 @@ public class ImageClassifiGridFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if(getBaiduPicsTasks != null){
+            for(GetBaiduPicsTask task:getBaiduPicsTasks){
+                task.cancleTask();
+            }
+        }
     }
 }

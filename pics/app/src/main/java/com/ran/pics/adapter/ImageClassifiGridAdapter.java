@@ -2,6 +2,7 @@ package com.ran.pics.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.ran.pics.R;
 import com.ran.pics.application.UILApplication;
+import com.ran.pics.bean.Album;
+import com.ran.pics.util.imageload.ImageLoaderUtils;
 
 import java.util.ArrayList;
 
@@ -17,7 +20,7 @@ import java.util.ArrayList;
  * Created by fanyiran on 15/5/9.
  */
 public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifiGridAdapter.Holder> {
-    private ArrayList<String> albumArrayList;
+    private ArrayList<Album> albumArrayList;
     private int width;
     private Activity activity;
 
@@ -26,48 +29,51 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
         width = UILApplication.getPicWidth(activity);
     }
 
-    public void setList(ArrayList<String> albumArrayList) {
+    public void setList(ArrayList<Album> albumArrayList) {
         this.albumArrayList = albumArrayList;
         this.notifyDataSetChanged();
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Holder holder = new Holder(View.inflate(parent.getContext(), R.layout.item_grid_classifi, null));
+        Holder holder = new Holder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_classifi, parent, false));
         return holder;
     }
 
 
     @Override
     public void onBindViewHolder(final Holder holder, int position) {
-        String album = albumArrayList.get(position);
+        Album album = albumArrayList.get(position);
         ViewGroup.LayoutParams layoutParams = holder.ivShow.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = width;
         holder.ivShow.setLayoutParams(layoutParams);
-//        holder.tvName.setText(album.getName());
-//        ImageLoaderUtils.getInstance().loadImage(activity,
-//                album.getPicList().get(0).getThumbnail(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
-//                    @Override
-//                    public void onLoadingStarted() {
-//                        holder.ivProgressBar.setVisibility(View.VISIBLE);
-//                    }
-//
-//                    @Override
-//                    public void onLoadingFailed(String failMessage) {
-//                        holder.ivProgressBar.setVisibility(View.GONE);
-//                    }
-//
-//                    @Override
-//                    public void onLoadingComplete() {
-//                        holder.ivProgressBar.setVisibility(View.GONE);
-//                    }
-//
-//                    @Override
-//                    public void onProgressUpdate() {
-//
-//                    }
-//                });
+        holder.tvName.setText(album.getAlbumName());
+        if(album.getPicPath() != null){
+            ImageLoaderUtils.getInstance().loadImage(activity,
+                    album.getPicPath(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
+                        @Override
+                        public void onLoadingStarted() {
+                            holder.ivProgressBar.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String failMessage) {
+                            holder.ivProgressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onLoadingComplete() {
+                            holder.ivProgressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onProgressUpdate() {
+
+                        }
+                    });
+        }
     }
 
     @Override
@@ -80,7 +86,7 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
         return albumArrayList == null ? 0 : albumArrayList.size();
     }
 
-    public class Holder extends RecyclerView.ViewHolder{
+    public class Holder extends RecyclerView.ViewHolder {
         ImageView ivShow;
         ImageView ivProgressBar;
         TextView tvName;
@@ -88,8 +94,16 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
         public Holder(View itemView) {
             super(itemView);
             ivShow = (ImageView) itemView.findViewById(R.id.ivShow);
-            tvName = (TextView)itemView.findViewById(R.id.tvName);
+            tvName = (TextView) itemView.findViewById(R.id.tvName);
             ivProgressBar = (ImageView) itemView.findViewById(R.id.ivProgressBar);
         }
+    }
+
+    public void insert(Album album, int index) {
+        if (albumArrayList == null)
+            albumArrayList = new ArrayList<>();
+        albumArrayList.set(index, album);
+        notifyDataSetChanged();
+//        notifyItemInserted(index);
     }
 }

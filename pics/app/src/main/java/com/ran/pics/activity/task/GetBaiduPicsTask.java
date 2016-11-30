@@ -19,9 +19,10 @@ import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 
 public class GetBaiduPicsTask {
-	private final String ONEPAGENUM = "30";
+	private final int ONEPAGENUM = 30;
 	private Context context;
 	private OnCompleteListener onCompleteListener;
+	private Call<BaiduJson> repos;
 
 	public interface OnCompleteListener{
 		void onFailure();
@@ -38,6 +39,10 @@ public class GetBaiduPicsTask {
 	}
 
 	public void execute(String searchWord, int pageNum) {
+		execute(searchWord,ONEPAGENUM,pageNum);
+	}
+
+	public void execute(String searchWord,int onePageNum, int pageNum) {
 		Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(Constant.UrlInterface.URL_BAIDU_BASE)
 //				.addConverterFactory(ScalarsConverterFactory.create())
@@ -50,12 +55,11 @@ public class GetBaiduPicsTask {
 		optionsMap.put("word",searchWord);
 		optionsMap.put("cg","girl");
 		optionsMap.put("pn",pageNum+"");
-		optionsMap.put("rn",ONEPAGENUM+"");
+		optionsMap.put("rn",onePageNum+"");
 		optionsMap.put("width","1080");
 		optionsMap.put("height","1920");
-//		optionsMap.put("itg","0");／
 		BaiduPicsService service = retrofit.create(BaiduPicsService.class);
-		Call<BaiduJson> repos = service.listRepos(optionsMap);
+		repos = service.listRepos(optionsMap);
 		repos.enqueue(new Callback<BaiduJson>() {
 			@Override
 			public void onResponse(Call<BaiduJson> call, Response<BaiduJson> response) {
@@ -73,5 +77,6 @@ public class GetBaiduPicsTask {
 	}
 
 	public void cancleTask() {
+		repos.cancel();
 	}
 }
