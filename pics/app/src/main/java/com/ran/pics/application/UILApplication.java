@@ -29,6 +29,8 @@ import com.ran.pics.util.AppBlockCanaryContext;
 import com.ran.pics.util.Constant;
 import com.squareup.leakcanary.LeakCanary;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
+
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
@@ -58,6 +60,7 @@ public class UILApplication extends Application {
     @SuppressWarnings("unused")
     @Override
     public void onCreate() {
+        CustomActivityOnCrash.install(this);
         if (Constant.Config.DEVELOPER_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()

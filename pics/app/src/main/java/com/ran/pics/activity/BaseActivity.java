@@ -59,7 +59,6 @@ public class BaseActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
         super.onBackPressed();
     }
 }

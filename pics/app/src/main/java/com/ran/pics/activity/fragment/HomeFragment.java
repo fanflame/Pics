@@ -45,19 +45,19 @@ public class HomeFragment extends Fragment{
 
     private void initData() {
         ArrayList<Fragment> fragmentList = new ArrayList<>(3);
-        Fragment fragment = ImageGridFragment.newInstance("手机壁纸");
+        Fragment fragment = ImageGridFragment.newInstance("精选");
         Bundle args = new Bundle();
         args.putString(FRAGMENT_NAME, "精选");
         fragment.setArguments(args);
         fragmentList.add(fragment);
 
-        fragment = ImageGridFragment.newInstance("最新手机壁纸");
+        fragment = ImageGridFragment.newInstance("最新");
         args = new Bundle();
         args.putString(FRAGMENT_NAME, "最新");
         fragment.setArguments(args);
         fragmentList.add(fragment);
 
-        fragment = ImageGridFragment.newInstance("吴亦凡手机壁纸");
+        fragment = ImageGridFragment.newInstance("吴亦凡");
         args = new Bundle();
         args.putString(FRAGMENT_NAME, "吴亦凡");
         fragment.setArguments(args);

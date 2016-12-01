@@ -52,8 +52,8 @@ public class GetBaiduPicsTask {
 		Map<String,String> optionsMap = new HashMap<>();
 		optionsMap.put("tn","resultjsonavatarnew");
 		optionsMap.put("ie","utf-8");
-		optionsMap.put("word",searchWord);
-		optionsMap.put("cg","girl");
+		optionsMap.put("word",searchWord+"手机高清");
+//		optionsMap.put("cg","girl");
 		optionsMap.put("pn",pageNum+"");
 		optionsMap.put("rn",onePageNum+"");
 		optionsMap.put("width","1080");

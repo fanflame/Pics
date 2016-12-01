@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.ran.pics.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 
 
 //分类
-public class ImageClassifiGridFragment extends Fragment {
+public class ImageClassifiGridFragment extends Fragment implements View.OnClickListener{
     private View rootView;
     private RecyclerView gvRefresh;
     private EditText etSearch;
@@ -73,34 +74,36 @@ public class ImageClassifiGridFragment extends Fragment {
             initEvent();
             initData();
         }
-        ArrayList<Album> albumList = new ArrayList<>();
-        Album album = new Album();
-        album.setAlbumName("范冰冰");
-        albumList.add(album);
-        album = new Album();
-        album.setAlbumName("李冰冰");
-        albumList.add(album);
-        album = new Album();
-        album.setAlbumName("周杰伦");
-        albumList.add(album);
-        album = new Album();
-        album.setAlbumName("黄渤");
-        albumList.add(album);
-        album = new Album();
-        album.setAlbumName("葛优");
-        albumList.add(album);
-        album = new Album();
-        album.setAlbumName("推女郎");
-        albumList.add(album);
-        album = new Album();
-        album.setAlbumName("性感");
-        albumList.add(album);
-        loadClassify(albumList);
+
+        loadClassify();
         return rootView;
     }
 
-    private void loadClassify(final ArrayList<Album> keyWordList) {
+    private void loadClassify() {
+        final ArrayList<Album> keyWordList = new ArrayList<>();
+        Album album = new Album();
+        album.setAlbumName("范冰冰");
+        keyWordList.add(album);
+        album = new Album();
+        album.setAlbumName("李冰冰");
+        keyWordList.add(album);
+        album = new Album();
+        album.setAlbumName("黄晓明");
+        keyWordList.add(album);
+        album = new Album();
+        album.setAlbumName("陆毅");
+        keyWordList.add(album);
+        album = new Album();
+        album.setAlbumName("iphone");
+        keyWordList.add(album);
+        album = new Album();
+        album.setAlbumName("风景");
+        keyWordList.add(album);
+        album = new Album();
+        album.setAlbumName("性感");
+        keyWordList.add(album);
         classifiGridAdapter.setList(keyWordList);
+
         if(keyWordList == null || keyWordList.size() == 0)
             return;
 //        swipeRefreshLayout.setRefreshing(true);
@@ -115,15 +118,16 @@ public class ImageClassifiGridFragment extends Fragment {
             GetBaiduPicsTask postBaiduPicsTask = new GetBaiduPicsTask(getActivity(), new GetBaiduPicsTask.OnCompleteListener() {
                 @Override
                 public void onFailure() {
-//                    swipeRefreshLayout.setRefreshing(false);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
                 public void onSuccess(ArrayList<? extends Pic> picList) {
+                    swipeRefreshLayout.setRefreshing(false);
                     if(picList.size() == 0)
                         return;
                     Album album = keyWordList.get(index);
-                    album.setPicPath(picList.get(0).getThumbnail());
+                    album.setPicPath(picList.get(0).getLinkUrl());
                     classifiGridAdapter.insert(album,index);
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -158,19 +162,16 @@ public class ImageClassifiGridFragment extends Fragment {
     }
 
     private void initEvent() {
-//        gvRefresh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                Intent intent = new Intent(getActivity(), ImageSearchResultActivity.class);
-//                intent.putExtra(ImageSearchResultActivity.KEY_WORD,((Album)classifiGridAdapter.getItem(position)).getName());
-//                startActivity(intent);
-//            }
-//        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadClassify();
+            }
+        });
     }
 
     private void initData() {
-        classifiGridAdapter = new ImageClassifiGridAdapter(getActivity());
+        classifiGridAdapter = new ImageClassifiGridAdapter(getActivity(),this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         gvRefresh.setLayoutManager(gridLayoutManager);
         gvRefresh.setAdapter(classifiGridAdapter);
@@ -184,5 +185,13 @@ public class ImageClassifiGridFragment extends Fragment {
                 task.cancleTask();
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Album album = (Album) v.getTag();
+        Intent intent = new Intent(getActivity(), ImageSearchResultActivity.class);
+        intent.putExtra(ImageSearchResultActivity.KEY_WORD,album.getAlbumName());
+        startActivity(intent);
     }
 }

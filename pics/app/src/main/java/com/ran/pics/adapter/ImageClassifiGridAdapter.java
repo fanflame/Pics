@@ -23,9 +23,11 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
     private ArrayList<Album> albumArrayList;
     private int width;
     private Activity activity;
+    private View.OnClickListener onClickListener;
 
-    public ImageClassifiGridAdapter(Activity activity) {
+    public ImageClassifiGridAdapter(Activity activity, View.OnClickListener onClickListener) {
         this.activity = activity;
+        this.onClickListener = onClickListener;
         width = UILApplication.getPicWidth(activity);
     }
 
@@ -50,6 +52,8 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
         layoutParams.height = width;
         holder.ivShow.setLayoutParams(layoutParams);
         holder.tvName.setText(album.getAlbumName());
+        holder.itemView.setOnClickListener(onClickListener);
+        holder.itemView.setTag(album);
         if(album.getPicPath() != null){
             ImageLoaderUtils.getInstance().loadImage(activity,
                     album.getPicPath(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {

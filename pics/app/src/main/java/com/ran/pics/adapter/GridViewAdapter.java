@@ -3,6 +3,7 @@ package com.ran.pics.adapter;
 import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +75,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         layoutParams.width = width;
         layoutParams.height = width;
 //        holder.imageView.setLayoutParams(layoutParams);
-
-        ImageLoaderUtils.getInstance().loadImage(context,picList.get(position).getThumbnail(), holder.imageView, new ImageLoaderUtils.OnLoadListener() {
+        Log.v("aaa",""+picList.get(position).getLinkUrl());
+        ImageLoaderUtils.getInstance().loadImage(context,picList.get(position).getLinkUrl(), holder.imageView, new ImageLoaderUtils.OnLoadListener() {
             @Override
             public void onLoadingStarted() {
                 holder.progressBar.setVisibility(View.VISIBLE);
@@ -147,7 +148,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
 
     public void clear() {
         if (picList != null)
-            picList.clear();
+          picList.clear();
+        notifyDataSetChanged();
     }
 
 
