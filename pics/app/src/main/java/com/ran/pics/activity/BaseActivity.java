@@ -3,11 +3,8 @@ package com.ran.pics.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.ran.pics.R;
-import com.ran.pics.util.ToastUtil;
 import com.ran.pics.view.SlideView;
 
 import butterknife.ButterKnife;
@@ -17,22 +14,21 @@ public class BaseActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle arg0) {
-        // 隐藏标题栏
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // 隐藏状态栏
-        // 定义全屏参数
-        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        // 获得当前窗体对象
-        Window window = this.getWindow();
-        // 设置当前窗体为全屏显示
-        window.setFlags(flag, flag);
+//        // 隐藏标题栏
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        // 隐藏状态栏
+//        // 定义全屏参数
+//        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//        // 获得当前窗体对象
+//        Window window = this.getWindow();
+//        // 设置当前窗体为全屏显示
+//        window.setFlags(flag, flag);
         super.onCreate(arg0);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        ToastUtil.cancel();
     }
 
     @Override

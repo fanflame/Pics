@@ -80,10 +80,10 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
     public void onSetWallpaperClick(View v) {
         if(pic == null)
             return;
-        ToastUtil.show(getActivity(), "请稍后");
+        ToastUtil.showShort(rootView, "请稍后");
         File f = ImageLoaderUtils.getInstance().getDiskCache(pic.getLinkUrl());
         if (f == null || !f.exists()) {
-            ToastUtil.show(getActivity(), "设置失败,请重试");
+            ToastUtil.showShort(rootView, "设置失败,请重试");
             return;
         }
         File temp = new File(Environment.getExternalStorageDirectory()
@@ -93,7 +93,7 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
         File t = new File(Environment.getExternalStorageDirectory()
                 + Constant.Config.DOWN_BMP_PATH + f.getName() + ".jpg");
         if (t.exists() || Utils.fileChannelCopy(f, t)) {
-            Utils.setWallPaper(getActivity(), t.getAbsolutePath());
+            Utils.setWallPaper(getActivity(), t.getAbsolutePath(), rootView);
         }
     }
 
@@ -111,11 +111,11 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
             File t = new File(Environment.getExternalStorageDirectory()
                     + Constant.Config.DOWN_BMP_PATH + f.getName() + ".jpg");
             if (t.exists() || Utils.fileChannelCopy(f, t)) {
-                Utils.setLockPaper(getActivity(), t.getAbsolutePath());
+                Utils.setLockPaper(getActivity(), t.getAbsolutePath(), rootView);
             }
         } catch (Throwable e) { // TODO Auto-generated catch block
             e.printStackTrace();
-            ToastUtil.show(getActivity(), "待开发");
+            ToastUtil.showShort(rootView, "待开发");
         }
     }
 
@@ -124,7 +124,7 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
             return;
         File f = ImageLoaderUtils.getInstance().getDiskCache(pic.getLinkUrl());
         if (f == null || !f.exists()) {
-            ToastUtil.show(getActivity(), "下载失败,请重试");
+            ToastUtil.showShort(rootView, "下载失败,请重试");
             return;
         }
         File temp = new File(Environment.getExternalStorageDirectory()
@@ -134,7 +134,7 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
         File t = new File(Environment.getExternalStorageDirectory()
                 + Constant.Config.DOWN_BMP_PATH + f.getName() + ".jpg");
         if (t.exists() || Utils.fileChannelCopy(f, t)) {
-            ToastUtil.show(getActivity(), "下载成功:" + t.getAbsolutePath());
+            ToastUtil.showShort(rootView, "下载成功:" + t.getAbsolutePath());
         }
     }
     @Override

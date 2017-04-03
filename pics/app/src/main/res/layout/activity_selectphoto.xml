@@ -16,7 +16,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/popup_background"
+        android:background="@drawable/popup_background"
         android:padding="10dp" >
 
         <Button

@@ -1,19 +1,20 @@
 package com.ran.pics.util;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
 public class ToastUtil {
-    private static Toast toast;
-
-    public static void show(Context context, String text) {
-        if (toast != null)
-            toast.cancel();
-        (toast = Toast.makeText(context, text, Toast.LENGTH_SHORT)).show();
+    public static void showShort(View view, String content,
+                                 String actionContent, View.OnClickListener clickListener) {
+        Snackbar.make(view, content, Snackbar.LENGTH_SHORT).setAction(actionContent, clickListener).show();
     }
 
-    public static void cancel(){
-        if(toast != null)
-            toast.cancel();
+    public static void showLong(View view, String content,
+                                String actionContent, View.OnClickListener clickListener) {
+        Snackbar.make(view, content, Snackbar.LENGTH_LONG).setAction(actionContent, clickListener).show();
+    }
+
+    public static void showShort(View view, String content) {
+        Snackbar.make(view, content, Snackbar.LENGTH_SHORT).show();
     }
 }

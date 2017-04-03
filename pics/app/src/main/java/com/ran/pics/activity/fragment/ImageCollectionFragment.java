@@ -148,7 +148,7 @@ public class ImageCollectionFragment extends Fragment
 
     @Override
     public void onDeletePicsComplete(boolean result) {
-        ToastUtil.show(getActivity(), result ? "删除成功" : "删除失败");
+        ToastUtil.showShort(rootView, result ? "删除成功" : "删除失败");
     }
 
     @Override
@@ -180,7 +180,7 @@ public class ImageCollectionFragment extends Fragment
             }
             gridAdapter.deleteCheckedList();
         }else{
-            ToastUtil.show(getActivity(),"您为选中任何一张图片");
+            ToastUtil.showShort(rootView, "您为选中任何一张图片");
         }
 
     }

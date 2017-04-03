@@ -138,7 +138,7 @@ public class Utils {
         return true;
     }
 
-    public static void setWallPaper(Context context, String bmpPath) {
+    public static void setWallPaper(Context context, String bmpPath, View view) {
         WallpaperManager wallpaperManager = WallpaperManager
                 .getInstance(context);
         Bitmap bitmap;
@@ -146,18 +146,18 @@ public class Utils {
             bitmap = BitmapFactory.decodeStream(new FileInputStream(bmpPath));
             wallpaperManager.setBitmap(bitmap);
         } catch (FileNotFoundException e) {
-            ToastUtil.show(context, "图片未找到");
+            ToastUtil.showShort(view, "图片未找到");
             e.printStackTrace();
             return;
         } catch (IOException e) {
-            ToastUtil.show(context, "设置失败");
+            ToastUtil.showShort(view, "设置失败");
             e.printStackTrace();
             return;
         }
-        ToastUtil.show(context, "设置成功");
+        ToastUtil.showShort(view, "设置成功");
     }
 
-    public static void setLockPaper(Context context, String file) {
+    public static void setLockPaper(Context context, String file, View view) {
         WallpaperManager mWallManager = WallpaperManager.getInstance(context);
         Class class1 = mWallManager.getClass();// 获取类名
         try {
@@ -168,31 +168,31 @@ public class Utils {
         } catch (IllegalArgumentException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            ToastUtil.show(context, "锁屏壁纸设置失败");
+            ToastUtil.showShort(view, "锁屏壁纸设置失败");
             return;
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            ToastUtil.show(context, "锁屏壁纸设置失败");
+            ToastUtil.showShort(view, "锁屏壁纸设置失败");
             return;
         } catch (IllegalAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            ToastUtil.show(context, "锁屏壁纸设置失败");
+            ToastUtil.showShort(view, "锁屏壁纸设置失败");
             return;
         } catch (InvocationTargetException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            ToastUtil.show(context, "锁屏壁纸设置失败");
+            ToastUtil.showShort(view, "锁屏壁纸设置失败");
             return;
         }// 调用锁屏壁纸的函数，并指定壁纸的路径imageFilesPath
         catch (NoSuchMethodException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            ToastUtil.show(context, "锁屏壁纸设置失败");
+            ToastUtil.showShort(view, "锁屏壁纸设置失败");
             return;
         }
-        ToastUtil.show(context, "锁屏壁纸设置成功");
+        ToastUtil.showShort(view, "锁屏壁纸设置成功");
     }
 
     public static void deleteSplashBmp(String bmpPath) {

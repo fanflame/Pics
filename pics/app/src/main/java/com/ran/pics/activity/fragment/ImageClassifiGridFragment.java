@@ -148,7 +148,7 @@ public class ImageClassifiGridFragment extends Fragment implements View.OnClickL
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             if (etSearch.getText().toString().trim().equals("")) {
-                                ToastUtil.show(getActivity(), "请输入有效关键字");
+                                ToastUtil.showShort(rootView, "请输入有效关键字");
                                 return false;
                             }
                             UILApplication.missKeyBoard(getActivity());

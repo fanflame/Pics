@@ -51,14 +51,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/open_arrow" />
+                    android:src="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1.0dip"
-            android:background="@mipmap/list_blockbg_divider" />
+            android:background="@drawable/list_blockbg_divider" />
 
         <com.ran.pics.view.MaterialSytle.LFrameLayout
             android:id="@+id/mydown"
@@ -89,14 +89,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/open_arrow" />
+                    android:src="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1.0dip"
-            android:background="@mipmap/list_blockbg_divider" />
+            android:background="@drawable/list_blockbg_divider" />
 
         <com.ran.pics.view.MaterialSytle.LFrameLayout
             android:id="@+id/clearCache"
@@ -127,14 +127,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/open_arrow" />
+                    android:src="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1.0dip"
-            android:background="@mipmap/list_blockbg_divider" />
+            android:background="@drawable/list_blockbg_divider" />
 
         <com.ran.pics.view.MaterialSytle.LFrameLayout
             android:id="@+id/about"
@@ -165,7 +165,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/open_arrow" />
+                    android:src="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
     </LinearLayout>

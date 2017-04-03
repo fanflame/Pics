@@ -23,7 +23,7 @@ public class GlideLoaderUtils extends ImageLoaderUtils {
     }
 
     private GlideLoaderUtils(){
-        imageHolder = R.mipmap.empty_photo;
+        imageHolder = R.drawable.empty_photo;
     }
 
     @Override

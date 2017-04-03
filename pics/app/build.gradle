@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.ran.pics"
         minSdkVersion 16
@@ -32,8 +32,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile files('libs/BaiduAppX_V2.4.1_20160530.jar')
-    compile files('libs/baidu_cuid.jar')
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     debugCompile 'com.github.markzhai:blockcanary-android:1.4.0'

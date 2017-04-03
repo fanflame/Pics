@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.appx.BDNativeAd;
 import com.ran.pics.R;
 import com.ran.pics.application.UILApplication;
 import com.ran.pics.bean.Pic;
@@ -21,6 +20,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//import com.baidu.appx.BDNativeAd;
+
 public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder> {
     private final int LOAD_AD = 0;
     private final int LOAD_IMAGE = 1;
@@ -30,7 +31,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     private Activity context;
     private float mDensity;
     private View.OnClickListener onClickListener;
-    private BDNativeAd nativeAd;
+//    private BDNativeAd nativeAd;
 
     public GridViewAdapter(Activity context, View.OnClickListener onClickListener, ArrayList<Pic> picList) {
         this.context = context;
@@ -42,9 +43,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     }
 
     private void initAd(){
-        nativeAd = new BDNativeAd(context, context.getString(R.string.baidu_app_key),
-                context.getString(R.string.baidu_ad_id));
-        nativeAd.loadAd();
+//        nativeAd = new BDNativeAd(context, context.getString(R.string.baidu_app_key),
+//                context.getString(R.string.baidu_ad_id));
+//        nativeAd.loadAd();
     }
 
 
@@ -63,7 +64,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
 
     @Override
     public void onBindViewHolder(Holder holder,int position) {
-        if(getItemViewType(position) == LOAD_AD && nativeAd != null && nativeAd.isLoaded()){
+        if (getItemViewType(position) == LOAD_AD
+//                && nativeAd != null && nativeAd.isLoaded()
+                ) {
             loadAd(holder,position);
         }else if(getItemViewType(position) == LOAD_IMAGE){
             loadImage(holder,position);
@@ -104,36 +107,36 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
     }
 
     private void loadAd(final Holder holder,final int position){
-        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        layoutParams.width = width;
-        layoutParams.height = width;
-        ArrayList<BDNativeAd.AdInfo> adArray = nativeAd.getAdInfos();
-        BDNativeAd.AdInfo adInfo = adArray.get(0);
-        //... 自定义展示UI,其中BDNativeAd.AdInfo里的
-        // didShow() 和 didClick()
-        // 需要相应的UI响应逻辑中触发调用。
-        holder.tvTitle.setText(adInfo.getTitle());
-        holder.tvDescription.setText(adInfo.getDescription());
-        holder.tvDownloadNum.setVisibility(View.GONE);
-        holder.tvFileSize.setVisibility(View.GONE);
-//        holder.tvDownloadNum.setText(adInfo.getDownloadNum());
-//        holder.tvFileSize.setText(adInfo.getFileSize());
-        ImageLoaderUtils.getInstance().loadImage(context,
-                adInfo.getImageUrl(), holder.imageView, null);
-        ImageLoaderUtils.getInstance().loadImage(context,
-                adInfo.getIconUrl(), holder.icon, null);
+//        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+//        layoutParams.width = width;
+//        layoutParams.height = width;
+//        ArrayList<BDNativeAd.AdInfo> adArray = nativeAd.getAdInfos();
+//        BDNativeAd.AdInfo adInfo = adArray.get(0);
+//        //... 自定义展示UI,其中BDNativeAd.AdInfo里的
+//        // didShow() 和 didClick()
+//        // 需要相应的UI响应逻辑中触发调用。
+//        holder.tvTitle.setText(adInfo.getTitle());
+//        holder.tvDescription.setText(adInfo.getDescription());
+//        holder.tvDownloadNum.setVisibility(View.GONE);
+//        holder.tvFileSize.setVisibility(View.GONE);
+////        holder.tvDownloadNum.setText(adInfo.getDownloadNum());
+////        holder.tvFileSize.setText(adInfo.getFileSize());
+//        ImageLoaderUtils.getInstance().loadImage(context,
+//                adInfo.getImageUrl(), holder.imageView, null);
+//        ImageLoaderUtils.getInstance().loadImage(context,
+//                adInfo.getIconUrl(), holder.icon, null);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(nativeAd != null && nativeAd.isLoaded() && position%30 == 3){
-            return LOAD_AD;
-        }else {
-            if(nativeAd == null){
-                initAd();
-            }
+//        if(nativeAd != null && nativeAd.isLoaded() && position%30 == 3){
+//            return LOAD_AD;
+//        }else {
+//            if(nativeAd == null){
+//                initAd();
+//            }
             return LOAD_IMAGE;
-        }
+//        }
     }
 
     @Override
@@ -217,9 +220,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
 
     public void destory(){
         //销毁广告对象
-        if(nativeAd != null){
-            nativeAd.destroy();
-            nativeAd = null;
-        }
+//        if(nativeAd != null){
+//            nativeAd.destroy();
+//            nativeAd = null;
+//        }
     }
 }

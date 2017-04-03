@@ -33,7 +33,7 @@ import com.ran.pics.util.ToastUtil;
 public class ImageSearchResultActivity extends BaseActivity {
     public static final String KEY_WORD = "keyword";
     private ImageGridFragment imageGridFragment;
-    private EditText etSearch;
+    EditText etSearch;
     private String keyword;
 
     public static void startImageSearchResultActivity(Activity fromActivity, String keyword){
@@ -66,7 +66,7 @@ public class ImageSearchResultActivity extends BaseActivity {
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             if (etSearch.getText().toString().trim().equals("")) {
-                                ToastUtil.show(ImageSearchResultActivity.this, "请输入有效关键字");
+                                ToastUtil.showShort(etSearch, "请输入有效关键字");
                                 return false;
                             }
                             UILApplication.missKeyBoard(ImageSearchResultActivity.this);

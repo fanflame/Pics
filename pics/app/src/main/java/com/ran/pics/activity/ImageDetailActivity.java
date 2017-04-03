@@ -141,19 +141,19 @@ public class ImageDetailActivity extends BaseActivity
         List<MenuObject> menuObjects = new ArrayList<>();
 
         MenuObject close = new MenuObject();
-        close.setResource(R.mipmap.icn_close);
+        close.setResource(R.drawable.icn_close);
 
         MenuObject like = new MenuObject("设置为桌面壁纸");
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.icn_2);
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icn_2);
         like.setBitmap(b);
 
         MenuObject addFr = new MenuObject("设置为锁屏壁纸");
         BitmapDrawable bd = new BitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.mipmap.icn_3));
+                BitmapFactory.decodeResource(getResources(), R.drawable.icn_3));
         addFr.setDrawable(bd);
 
         MenuObject addFav = new MenuObject("收藏");
-        addFav.setResource(R.mipmap.icn_4);
+        addFav.setResource(R.drawable.icn_4);
 
         menuObjects.add(close);
         menuObjects.add(like);
@@ -186,16 +186,16 @@ public class ImageDetailActivity extends BaseActivity
                 File file;
                 if (tapPic != null
                         && (file = ImageLoaderUtils.getInstance().getDiskCache(tapPic.getLinkUrl())) != null)
-                    Utils.setWallPaper(this, file.getPath());
+                    Utils.setWallPaper(this, file.getPath(), mPager);
                 else
-                    ToastUtil.show(this, "设置失败");
+                    ToastUtil.showShort(mPager, "设置失败");
                 break;
             case 2:
                 if (tapPic != null
                         && (file = ImageLoaderUtils.getInstance().getDiskCache(tapPic.getLinkUrl())) != null)
-                    Utils.setLockPaper(this, file.getPath());
+                    Utils.setLockPaper(this, file.getPath(), mPager);
                 else
-                    ToastUtil.show(this, "设置失败");
+                    ToastUtil.showShort(mPager, "设置失败");
                 break;
             case 3:
                 if (tapPic != null
@@ -206,10 +206,10 @@ public class ImageDetailActivity extends BaseActivity
                         fileTemp.mkdirs();
                     fileTemp = new File(fileTemp.getAbsolutePath() + "/" + file.getName());
                     if (Utils.fileChannelCopy(file, fileTemp)) {
-                        ToastUtil.show(this, "收藏成功");
+                        ToastUtil.showShort(mPager, "收藏成功");
                     }
                 } else
-                    ToastUtil.show(this, "收藏失败");
+                    ToastUtil.showShort(mPager, "收藏失败");
                 break;
             default:
         }

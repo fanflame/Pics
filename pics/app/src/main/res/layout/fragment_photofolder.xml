@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@mipmap/popup_background"
+        android:background="@drawable/popup_background"
         android:orientation="horizontal" >
 
         <View

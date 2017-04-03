@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity{
         if(System.currentTimeMillis() - lastPressBackTime <= PRESS_EXIT_INTERVAL){
             super.onBackPressed();
         }else {
-            ToastUtil.show(this,"再按一次退出");
+            ToastUtil.showShort(pager, "再按一次退出");
             lastPressBackTime = System.currentTimeMillis();
         }
     }

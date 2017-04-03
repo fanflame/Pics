@@ -6,11 +6,12 @@ import android.os.Handler;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
-import com.baidu.appx.BDInterstitialAd;
 import com.ran.pics.R;
 
 import butterknife.BindString;
 import butterknife.BindView;
+
+//import com.baidu.appx.BDInterstitialAd;
 
 /**
  * Created by fanyiran on 16/11/13.
@@ -27,7 +28,7 @@ public class SplashActivity extends BaseActivity {
     @BindView(R.id.llContainer)
     LinearLayout llContainer;
 
-    private BDInterstitialAd splashAd;
+//    private BDInterstitialAd splashAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,47 +49,47 @@ public class SplashActivity extends BaseActivity {
         });
         handler = new Handler();
         //创建开屏广告
-        splashAd = new BDInterstitialAd(this, baiduAppKey, baiduAdId);
-        splashAd.setAdListener(new BDInterstitialAd.InterstitialAdListener() {
-            @Override
-            public void onAdvertisementViewDidHide() {
-
-            }
-
-            @Override
-            public void onAdvertisementDataDidLoadSuccess() {
-//                //展示开屏广告
-                if (splashAd.isLoaded()) {
-                    splashAd.showAd();
-                }
-            }
-
-            @Override
-            public void onAdvertisementDataDidLoadFailure() {
-
-            }
-
-            @Override
-            public void onAdvertisementViewDidShow() {
-
-            }
-
-            @Override
-            public void onAdvertisementViewDidClick() {
-
-            }
-
-            @Override
-            public void onAdvertisementViewWillStartNewIntent() {
-
-            }
-        });
-        //如果本地无广告可用,需要下载广告,待下次启动使用
-        if (!splashAd.isLoaded()) {
-            splashAd.loadAd();
-        }else{
-            splashAd.showAd();
-        }
+//        splashAd = new BDInterstitialAd(this, baiduAppKey, baiduAdId);
+//        splashAd.setAdListener(new BDInterstitialAd.InterstitialAdListener() {
+//            @Override
+//            public void onAdvertisementViewDidHide() {
+//
+//            }
+//
+//            @Override
+//            public void onAdvertisementDataDidLoadSuccess() {
+////                //展示开屏广告
+//                if (splashAd.isLoaded()) {
+//                    splashAd.showAd();
+//                }
+//            }
+//
+//            @Override
+//            public void onAdvertisementDataDidLoadFailure() {
+//
+//            }
+//
+//            @Override
+//            public void onAdvertisementViewDidShow() {
+//
+//            }
+//
+//            @Override
+//            public void onAdvertisementViewDidClick() {
+//
+//            }
+//
+//            @Override
+//            public void onAdvertisementViewWillStartNewIntent() {
+//
+//            }
+//        });
+//        //如果本地无广告可用,需要下载广告,待下次启动使用
+//        if (!splashAd.isLoaded()) {
+//            splashAd.loadAd();
+//        }else{
+//            splashAd.showAd();
+//        }
     }
 
     private void delayJump() {
@@ -115,10 +116,10 @@ public class SplashActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //销毁广告对象
-        if(splashAd != null){
-            splashAd.destroy();
-            splashAd = null;
-        }
+//        if(splashAd != null){
+//            splashAd.destroy();
+//            splashAd = null;
+//        }
 
     }
 
