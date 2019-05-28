@@ -14,6 +14,7 @@ import java.io.File;
 
 public class GlideLoaderUtils extends ImageLoaderUtils {
     private int imageHolder;
+
     static private class ImageLoaderHolder {
         static GlideLoaderUtils loader = new GlideLoaderUtils();
     }
@@ -22,7 +23,7 @@ public class GlideLoaderUtils extends ImageLoaderUtils {
         return ImageLoaderHolder.loader;
     }
 
-    private GlideLoaderUtils(){
+    private GlideLoaderUtils() {
         imageHolder = R.drawable.empty_photo;
     }
 
@@ -33,12 +34,11 @@ public class GlideLoaderUtils extends ImageLoaderUtils {
                 .load(imgUrl)
                 .centerCrop()
                 .placeholder(imageHolder)
-                .crossFade()
                 .into(imageView);
     }
 
     @Override
-    public void loadImage(Context context,String imgUrl, ImageView imageView) {
+    public void loadImage(Context context, String imgUrl, ImageView imageView) {
         Glide.with(context).load(imgUrl).into(imageView);
     }
 

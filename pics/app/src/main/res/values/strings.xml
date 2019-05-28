@@ -22,11 +22,7 @@
     <string name="baidu_app_key">MGGIdG9t9GLtL2TbeViqhdENCCFRLaMw</string>
     <string name="baidu_ad_splash_id">YLOawniAkw75ZXEn5mMtTvNi</string>
     <string name="baidu_ad_id">gM1OswGojMF7w187wuu0GCQeRjm2nT4R</string>
-    <string name="app_description">This is a sample application for the Android Training class
-        "Displaying Bitmaps Efficiently"
-        (http://developer.android.com/training/displaying-bitmaps/display-bitmap.html). It is not
-        designed to be a full reference application but to demonstrate the concepts discussed in
-        training course.</string>
+    <string name="app_description">然</string>
     <string name="clear_cache_menu">清除缓存</string>
     <string name="clear_cache_complete">Caches have been cleared</string>
     <string name="imageview_description">Image Thumbnail</string>

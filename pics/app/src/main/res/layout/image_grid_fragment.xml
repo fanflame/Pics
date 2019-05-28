@@ -9,21 +9,20 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/un_radius"
         android:background="@drawable/shape_edittext"
-        android:drawableLeft="@drawable/abc_ic_voice_search_api_mtrl_alpha"
         android:gravity="center"
         android:hint="你想要的这里都有"
         android:padding="8dp"
         android:maxLines="1" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSearch">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pull_refresh_grid"
             style="@style/gv_styles" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

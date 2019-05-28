@@ -15,16 +15,11 @@
  *******************************************************************************/
 package com.ran.pics.application;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.os.Build;
-import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
-
-import com.ran.pics.util.Constant;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -50,16 +45,8 @@ public class UILApplication extends Application {
                                 .getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    @SuppressWarnings("unused")
     @Override
     public void onCreate() {
-        if (Constant.Config.DEVELOPER_MODE) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectAll().penaltyDeath().build());
-        }
         super.onCreate();
 
         instance = this;
