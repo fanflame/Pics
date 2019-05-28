@@ -24,12 +24,7 @@ import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 
-import com.github.moduth.blockcanary.BlockCanary;
-import com.ran.pics.util.AppBlockCanaryContext;
 import com.ran.pics.util.Constant;
-import com.squareup.leakcanary.LeakCanary;
-
-import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -60,19 +55,11 @@ public class UILApplication extends Application {
     @SuppressWarnings("unused")
     @Override
     public void onCreate() {
-        CustomActivityOnCrash.install(this);
         if (Constant.Config.DEVELOPER_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                     .detectAll().penaltyDeath().build());
         }
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
-        BlockCanary.install(this, new AppBlockCanaryContext()).start();
         super.onCreate();
 
         instance = this;
