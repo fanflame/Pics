@@ -63,9 +63,9 @@ public class HomeFragment extends Fragment{
         fragment.setArguments(args);
         fragmentList.add(fragment);
 
-        adapter = new MainPagerAdapter(getFragmentManager(),
-                fragmentList);
-        pager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(pager);
+//        adapter = new MainPagerAdapter(getFr  agmentManager(),
+//                fragmentList);
+//        pager.setAdapter(adapter);
+//        tabLayout.setupWithViewPager(pager);
     }
 }

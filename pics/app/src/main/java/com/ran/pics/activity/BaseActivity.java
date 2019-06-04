@@ -2,14 +2,22 @@ package com.ran.pics.activity;
 
 import android.os.Bundle;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 
+import com.fanyiran.utils.recycleadapter.CreateRvHelper;
+import com.fanyiran.utils.recycleadapter.ICreateRv;
+import com.fanyiran.utils.recycleadapter.RvBaseAdapter;
 import com.ran.pics.R;
 import com.ran.pics.view.SlideView;
 
 import butterknife.ButterKnife;
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends FragmentActivity implements ICreateRv {
+    private CreateRvHelper createRvHelper;
     private SlideView slideView;
 
     @Override
@@ -45,6 +53,10 @@ public class BaseActivity extends FragmentActivity {
             super.setContentView(layoutResID);
         }
         ButterKnife.bind(this);
+
+        if (supportRecycleView()) {
+            createRvHelper = new CreateRvHelper.Builder(this).build();
+        }
     }
 
     @Override
@@ -57,4 +69,34 @@ public class BaseActivity extends FragmentActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // ICreateRv start
+    ///////////////////////////////////////////////////////////////////////////
+
+    protected boolean supportRecycleView() {
+        return false;
+    }
+    @Override
+    public RecyclerView getRecycleView() {
+        return null;
+    }
+
+    @Override
+    public RvBaseAdapter getAdapter() {
+        return null;
+    }
+
+    @Override
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+    }
+
+    @Override
+    public RecyclerView.ItemDecoration getItemDecoration() {
+        return new DividerItemDecoration(this,LinearLayoutManager.HORIZONTAL) ;
+    }
+    ///////////////////////////////////////////////////////////////////////////
+    // ICreateRv end
+    ///////////////////////////////////////////////////////////////////////////
 }

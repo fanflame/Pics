@@ -21,6 +21,8 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */

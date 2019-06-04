@@ -12,11 +12,12 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.ran.pics.R;
 
-public class CircleImageView extends ImageView {
+public class CircleImageView extends AppCompatImageView {
 
 	public CircleImageView(Context context) {
 		super(context);

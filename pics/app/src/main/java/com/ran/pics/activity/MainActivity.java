@@ -16,80 +16,179 @@
 
 package com.ran.pics.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fanyiran.utils.LogUtil;
+import com.fanyiran.utils.recycleadapter.RvBaseAdapter;
+import com.fanyiran.utils.recycleadapter.RvViewHolder;
 import com.ran.pics.R;
-import com.ran.pics.activity.fragment.HomeFragment;
-import com.ran.pics.activity.fragment.ImageClassifiGridFragment;
-import com.ran.pics.activity.fragment.SettingFragment;
+import com.ran.pics.activity.task.GetBaiduPicsTask;
 import com.ran.pics.adapter.MainPagerAdapter;
+import com.ran.pics.adapter.RecycleViewAdapter;
+import com.ran.pics.bean.Pic;
+import com.ran.pics.util.CustPagerTransformer;
 import com.ran.pics.util.ToastUtil;
+import com.ran.pics.util.Utils;
+import com.ran.pics.view.PaletteLinearLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-import static com.ran.pics.adapter.MainPagerAdapter.FRAGMENT_NAME;
+public class MainActivity extends BaseActivity {
+    private static final int START_PAGE = 2;
+    private static final String TAG = "MainActivity";
+    private int currentPageNum = START_PAGE;
 
-public class MainActivity extends BaseActivity{
-    private final int PRESS_EXIT_INTERVAL= 1000;
-    @BindView(R.id.pager)
-    ViewPager pager;
-    @BindView(R.id.tabLayout)
-    TabLayout tabLayout;
-    private MainPagerAdapter adapter;
+    private final int PRESS_EXIT_INTERVAL = 1000;
     private long lastPressBackTime;
+    private String keyword = "";
+    private RecycleViewAdapter recycleViewAdapter;
+    private ArrayList<Pic> baseDataList;
+    private GetBaiduPicsTask postBaiduPicsTask;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
-    public static void startActivity(Context context){
-        Intent intent = new Intent(context,MainActivity.class);
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        initData();
+        //去除标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //去除状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Utils.setFullScreenWindowLayoutInDisplayCutout(getWindow());
+        setContentView(R.layout.activity_main);
+
+//        OverScrollDecoratorHelper.setUpOverScroll(getRecycleView(),OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+
+        postBaiduAllPics(keyword, currentPageNum);
+
+        initEvent();
     }
 
-    private void initData() {
-        ArrayList<Fragment> fragmentList = new ArrayList<>(3);
-        Fragment fragment = HomeFragment.newInstance();
-        Bundle args = new Bundle();
-        args.putString(FRAGMENT_NAME, "首页");
-        fragment.setArguments(args);
-        fragmentList.add(fragment);
+    private void initEvent() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currentPageNum = 0;
+                postBaiduAllPics(keyword, currentPageNum);
+            }
+        });
 
-        fragment = ImageClassifiGridFragment.newInstance();
-        args = new Bundle();
-        args.putString(FRAGMENT_NAME, "分类");
-        fragment.setArguments(args);
-        fragmentList.add(fragment);
+        getRecycleView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    long originTag = System.currentTimeMillis();
+                    View childAtFirst = getRecycleView().getChildAt(0);
+                    if (childAtFirst == null) {
+                        return;
+                    }
+                    int[] position = new int[2];
+                    childAtFirst.getLocationInWindow(position);
+                    if (position[1] < 0) {
+                        if (getRecycleView().getChildCount() <= 1) {
+                            return;
+                        }
+                        childAtFirst = getRecycleView().getChildAt(1);
+                    }
+                    RvViewHolder childViewHolder = (RvViewHolder) getRecycleView().getChildViewHolder(childAtFirst);
+                    PaletteLinearLayout view = (PaletteLinearLayout) childViewHolder.getView(R.id.linearLayout);
+                    view.getPaletteColor(originTag, (long tag, int color) -> {
+                                if (tag == originTag) {
+                                    startAnim(color);
+                                }
+                            }
+                    );
+                }
+            }
+        });
+    }
 
-        fragment = new SettingFragment();
-        args = new Bundle();
-        args.putString(FRAGMENT_NAME, "设置");
-        fragment.setArguments(args);
-        fragmentList.add(fragment);
+    private void startAnim(int newBgColor) {
+        int currentColor = 0;
+        Drawable background = getRecycleView().getBackground();
+        if (background instanceof ColorDrawable) {
+            currentColor = ((ColorDrawable) background).getColor();
+        }
+        ObjectAnimator animator = ObjectAnimator.ofArgb(this,"changeBgColor",currentColor,newBgColor);
+        animator.setDuration(500);
+        animator.start();
+    }
 
-        adapter = new MainPagerAdapter(getSupportFragmentManager(),
-                fragmentList);
-        pager.setAdapter(adapter);
-        pager.setOffscreenPageLimit(3);
-        tabLayout.setupWithViewPager(pager);
+    public void setChangeBgColor(int color) {
+        getRecycleView().setBackgroundColor(color);
+    }
+
+    /**
+     * 百度搜索图片
+     */
+    private void postBaiduAllPics(String searchWord, int pageNum) {
+        if (postBaiduPicsTask == null)
+            postBaiduPicsTask = new GetBaiduPicsTask(this, new GetBaiduPicsTask.OnCompleteListener() {
+                @Override
+                public void onFailure() {
+                    ToastUtil.showShort(getRecycleView(), "加载失败");
+                }
+
+                @Override
+                public void onSuccess(ArrayList<? extends Pic> picList) {
+                    baseDataList.addAll(picList);
+                    recycleViewAdapter.notifyDataSetChanged();
+                }
+            });
+        postBaiduPicsTask.execute(searchWord, pageNum);
     }
 
     @Override
     public void onBackPressed() {
-        if(System.currentTimeMillis() - lastPressBackTime <= PRESS_EXIT_INTERVAL){
+        if (System.currentTimeMillis() - lastPressBackTime <= PRESS_EXIT_INTERVAL) {
             super.onBackPressed();
-        }else {
-            ToastUtil.showShort(pager, "再按一次退出");
+        } else {
+            ToastUtil.showShort(getRecycleView(), "再按一次退出");
             lastPressBackTime = System.currentTimeMillis();
         }
+    }
+
+    @Override
+    protected boolean supportRecycleView() {
+        return true;
+    }
+
+    @Override
+    public RecyclerView getRecycleView() {
+        return findViewById(R.id.recyclerView);
+    }
+
+    @Override
+    public RvBaseAdapter getAdapter() {
+        if (recycleViewAdapter == null) {
+            baseDataList = new ArrayList<>();
+            recycleViewAdapter = new RecycleViewAdapter(baseDataList);
+        }
+        return recycleViewAdapter;
     }
 }

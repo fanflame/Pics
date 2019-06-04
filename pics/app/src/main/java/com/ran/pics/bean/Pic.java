@@ -1,5 +1,7 @@
 package com.ran.pics.bean;
 
+import com.ran.pics.adapter.itemtype.PicItem;
+
 import java.io.File;
 import java.io.Serializable;
 
@@ -41,4 +43,8 @@ public abstract class Pic implements Serializable {
 	public void setLocalFile(File localFile) {
 		this.localFile = localFile;
 	}
+
+    public int getItemType(){
+	    return PicItem.TYPE_PIC;
+    }
 }

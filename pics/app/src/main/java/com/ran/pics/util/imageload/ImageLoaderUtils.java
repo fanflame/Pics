@@ -1,6 +1,7 @@
 package com.ran.pics.util.imageload;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -18,7 +19,7 @@ public abstract class ImageLoaderUtils {
     public interface OnLoadListener{
         void onLoadingStarted();
         void onLoadingFailed(String failMessage);
-        void onLoadingComplete();
+        void onLoadingComplete(Drawable resource);
         void onProgressUpdate();
     }
     abstract public void loadImage(Context context, String imgUrl, ImageView imageView, final OnLoadListener onLoadListener);

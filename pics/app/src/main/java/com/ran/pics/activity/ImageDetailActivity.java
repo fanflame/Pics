@@ -23,11 +23,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 
 import com.ran.pics.R;
+import com.ran.pics.activity.fragment.ImageDetailFragment;
 import com.ran.pics.activity.fragment.ImageHandleFragment;
 import com.ran.pics.adapter.ImagePagerAdapter;
 import com.ran.pics.animation.DepthPageTransformer;
@@ -41,10 +44,14 @@ import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
+import android.view.WindowManager;
+import android.view.Window;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.internal.Util;
 
 public class ImageDetailActivity extends BaseActivity
         implements ScaleAnimationImageView.SingleTapListener, OnMenuItemClickListener {
@@ -68,8 +75,14 @@ public class ImageDetailActivity extends BaseActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //去除标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //去除状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Utils.setFullScreenWindowLayoutInDisplayCutout(getWindow());
+        Utils.setNavigatorHidden(getWindow());
         setContentView(R.layout.image_detail_pager);
-        getWindow().addFlags(LayoutParams.FLAG_FULLSCREEN);
 
         initView();
         initData();
@@ -77,7 +90,7 @@ public class ImageDetailActivity extends BaseActivity
     }
 
     private void initView() {
-        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager = findViewById(R.id.pager);
         initMenuFragment();
     }
 
@@ -123,7 +136,7 @@ public class ImageDetailActivity extends BaseActivity
             mMenuDialogFragment.dismissAllowingStateLoss();
         } else {
             mMenuDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
-            tapPic = (Pic) imageView.getTag();
+            tapPic = (Pic) imageView.getTag(ImageDetailFragment.DETAIL_IMG_TAG);
         }
     }
 

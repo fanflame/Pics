@@ -21,11 +21,13 @@ import android.view.ScaleGestureDetector;
 import android.view.ScaleGestureDetector.OnScaleGestureListener;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * ImageView with scale animation, which supports pinch-in, pinch-out and
  * double-tap gestures.
  */
-public class ScaleAnimationImageView extends ImageView {
+public class ScaleAnimationImageView extends AppCompatImageView {
     private static final float MAX_SCALE = 4.0f;
     private static final float MIN_SCALE = 1.0f;
     private static final float SCALE_RESTRICT_FACTOR = 0.6f;
@@ -57,7 +59,7 @@ public class ScaleAnimationImageView extends ImageView {
 
     public ScaleAnimationImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        super.setScaleType(ScaleType.MATRIX);
+        super.setScaleType(ImageView.ScaleType.MATRIX);
         mGestureDetector = new GestureDetector(context, new GestureListener());
         mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleGestureListener());
     }

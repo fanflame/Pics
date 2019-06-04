@@ -2,33 +2,42 @@ package com.ran.pics.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.ran.pics.activity.fragment.ImageFragment;
+import com.ran.pics.bean.Pic;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainPagerAdapter extends FragmentPagerAdapter {
+public class MainPagerAdapter extends FragmentStatePagerAdapter {
 	public static final String FRAGMENT_NAME = "FRAGMENT_NAME";
-	private ArrayList<Fragment> fragmentList;
+	private List<? extends Pic> picList;
 
-	public MainPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragmentList) {
+	public MainPagerAdapter(FragmentManager fm) {
 		super(fm);
-		this.fragmentList = fragmentList;
 	}
 
-	@Override
-	public CharSequence getPageTitle(int position) {
-		return fragmentList == null ? "" : fragmentList.get(position)
-				.getArguments().getString(FRAGMENT_NAME);
-	}
 
 	@Override
 	public int getCount() {
-		return fragmentList == null ? 0 : fragmentList.size();
+		return picList == null ? 0 : picList.size();
 	}
 
 	@Override
 	public Fragment getItem(int position) {
-		return fragmentList == null ? null : fragmentList.get(position);
+		return getFragment(position);
 	}
+
+	public void setPicList(List<? extends Pic> picList) {
+		this.picList = picList;
+		notifyDataSetChanged();
+	}
+
+	// TODO: 2019-05-29 复用fragment
+	public Fragment getFragment(int position) {
+		return ImageFragment.newInstance(picList.get(position));
+	}
+
 
 }

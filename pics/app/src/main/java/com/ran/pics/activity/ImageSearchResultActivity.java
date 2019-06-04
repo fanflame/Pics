@@ -16,19 +16,21 @@
 
 package com.ran.pics.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.ran.pics.R;
 import com.ran.pics.activity.fragment.ImageGridFragment;
 import com.ran.pics.application.UILApplication;
 import com.ran.pics.util.ToastUtil;
+import android.app.Activity;
 
 public class ImageSearchResultActivity extends BaseActivity {
     public static final String KEY_WORD = "keyword";

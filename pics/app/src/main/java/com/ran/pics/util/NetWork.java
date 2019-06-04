@@ -1,11 +1,12 @@
 package com.ran.pics.util;
 
-import android.app.Activity;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class NetWork {
 	public static void getSplashBmpUrl(final ImageView imageView,
-			final Activity context) {
+			final AppCompatActivity context) {
 //		File file = new File(Environment.getExternalStorageDirectory()
 //				+ Constant.Config.SPLASH_BMP_PATH);
 //		File[] fileArray;
@@ -86,7 +87,7 @@ public class NetWork {
 	}
 
 	public static void getHomeBmpUrl(final ImageView imageView,
-			final Activity context) {
+			final AppCompatActivity context) {
 //		File file = new File(Environment.getExternalStorageDirectory()
 //				+ Constant.Config.HOME_BMP_PATH);
 //		File[] fileArray;

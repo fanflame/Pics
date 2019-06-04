@@ -51,7 +51,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/open_arrow" />
+                    pull:srcCompat="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
 
@@ -89,7 +89,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/open_arrow" />
+                    pull:srcCompat="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
 
@@ -127,7 +127,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/open_arrow" />
+                    pull:srcCompat="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
 
@@ -165,7 +165,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/open_arrow" />
+                    pull:srcCompat="@drawable/open_arrow" />
             </RelativeLayout>
         </com.ran.pics.view.MaterialSytle.LFrameLayout>
     </LinearLayout>

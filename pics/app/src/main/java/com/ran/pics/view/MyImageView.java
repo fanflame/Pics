@@ -12,9 +12,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ImageButton;
 
-public class MyImageView extends ImageButton {
+import androidx.appcompat.widget.AppCompatImageButton;
+
+public class MyImageView extends AppCompatImageButton {
 
 	private boolean onAnimation = true;
 	private int rotateDegree = 10;

@@ -17,21 +17,21 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/theme_bg</item>
     </style>
 
     <style name="TransTheme" parent="@style/Theme.AppCompat.Light">
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="Theme.SmoothProgressBarDefaults" parent="android:Theme.Holo">
+    <style name="Theme.SmoothProgressBarDefaults" parent="Theme.AppCompat">
         <item name="cpbStyle">@style/CircularProgressBar</item>
     </style>
 
-    <style name="CircularProgressBar" parent="android:Widget.Holo.ProgressBar">
+    <style name="CircularProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="cpb_color">@color/cpb_default_color</item>
         <item name="cpb_stroke_width">@dimen/cpb_default_stroke_width</item>
         <item name="cpb_min_sweep_angle">@integer/cpb_default_min_sweep_angle</item>
@@ -43,7 +43,7 @@
     <style name="alert_dialog" parent="android:Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">@color/float_transparent</item>
         <item name="android:windowAnimationStyle">@null</item>
@@ -54,7 +54,7 @@
     <style name="dialog_blue_button" parent="android:Widget.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">31dp</item>
-        <item name="android:background">@drawable/blue_button_background</item>
+        <item name="background">@drawable/blue_button_background</item>
         <item name="android:textSize">14sp</item>
         <item name="android:paddingLeft">21dp</item>
         <item name="android:paddingRight">21dp</item>
@@ -71,7 +71,7 @@
 
     <style name="tv_dialog_title" parent="tv_styles">
         <item name="android:textSize">16sp</item>
-        <item name="android:background">@drawable/shape_dialog_title</item>
+        <item name="background">@drawable/shape_dialog_title</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -85,7 +85,7 @@
     <style name="et_styles" parent="android:Widget.EditText">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/shape_edittext</item>
+        <item name="background">@drawable/shape_edittext</item>
         <item name="android:textSize">@dimen/textsize_et</item>
         <item name="android:textColorHint">@color/et_hint_color</item>
         <item name="android:padding">@dimen/et_padding</item>
@@ -107,7 +107,7 @@
     </style>
 
     <style name="btn">
-        <item name="android:background">@drawable/shape_textview</item>
+        <item name="background">@drawable/shape_textview</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
@@ -116,11 +116,11 @@
     </style>
 
     <style name="btn_dialog_left" parent="btn">
-        <item name="android:background">@drawable/shape_btn_dialog_left</item>
+        <item name="background">@drawable/shape_btn_dialog_left</item>
     </style>
 
     <style name="btn_dialog_right" parent="btn">
-        <item name="android:background">@drawable/shape_btn_dialog_right</item>
+        <item name="background">@drawable/shape_btn_dialog_right</item>
     </style>
 
 </resources>

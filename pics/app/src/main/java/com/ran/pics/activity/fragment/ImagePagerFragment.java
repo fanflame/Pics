@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.ran.pics.activity.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import androidx.fragment.app.Fragment;
@@ -99,7 +100,7 @@ public class ImagePagerFragment extends Fragment {
 				}
 
 				@Override
-				public void onLoadingComplete() {
+				public void onLoadingComplete(Drawable resource) {
 					spinner.setVisibility(View.GONE);
 				}
 

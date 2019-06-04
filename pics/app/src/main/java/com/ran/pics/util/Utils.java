@@ -1,6 +1,5 @@
 package com.ran.pics.util;
 
-import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -9,11 +8,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
-import androidx.fragment.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.ran.pics.dialog.TipsDialogFragment;
 import com.ran.pics.util.imageload.ImageLoaderUtils;
@@ -30,7 +32,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class Utils {
-    public static int[] getScreenSize(Activity context) {
+    public static int[] getScreenSize(AppCompatActivity context) {
         DisplayMetrics metric = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(metric);
         int[] array = new int[2];
@@ -227,7 +229,7 @@ public class Utils {
             public void onConfirmClick() {
                 ImageLoaderUtils.getInstance().clearDiskCache();
             }
-        },"提示","确定要清除缓存图片吗？").show(fragmentManager,"");
+        }, "提示", "确定要清除缓存图片吗？").show(fragmentManager, "");
     }
 
 
@@ -244,7 +246,7 @@ public class Utils {
         }
     }
 
-    public static void shutDownKeyBoard(Activity context) {
+    public static void shutDownKeyBoard(AppCompatActivity context) {
         View view = context.getWindow().peekDecorView();
         if (view != null) {
             InputMethodManager inputmanger = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -270,6 +272,30 @@ public class Utils {
         File noMediaFile = new File(Environment.getExternalStorageDirectory()
                 + Constant.Config.DOWN_BMP_PATH + ".nomedia");
         return noMediaFile.delete();
+    }
+
+    public static boolean hasNotchInScreen(Context context) {
+        return false;
+    }
+
+    public static void setFullScreenWindowLayoutInDisplayCutout(Window window) {
+        // TODO: 2019-05-28 判断手机
+        HuaweiUtils.setFullScreenWindowLayoutInDisplayCutout(window);
+    }
+
+    public static void setNavigatorColor(int color,Window window) {
+        window.setNavigationBarColor(color);
+    }
+
+    public static void setNavigatorHidden(Window window) {
+        View decorView = window.getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
 }

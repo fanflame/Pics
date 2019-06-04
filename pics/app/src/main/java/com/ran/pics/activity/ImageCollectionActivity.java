@@ -16,8 +16,9 @@
 
 package com.ran.pics.activity;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.ran.pics.R;
 import com.ran.pics.activity.fragment.ImageCollectionFragment;
@@ -42,7 +43,7 @@ public class ImageCollectionActivity extends BaseActivity
 
     private void initView() {
         collectionFragment = ImageCollectionFragment.newInstance(this);
-        FragmentManager manager = getFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentReplace, collectionFragment).commit();
         imageOperateFloatFragment = ImageOperateFloatFragment.getInstance(collectionFragment);
         manager.beginTransaction().replace(R.id.llFloatContainer, imageOperateFloatFragment).commit();

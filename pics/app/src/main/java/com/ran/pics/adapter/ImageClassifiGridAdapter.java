@@ -1,12 +1,15 @@
 package com.ran.pics.adapter;
 
 import android.app.Activity;
-import androidx.recyclerview.widget.RecyclerView;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ran.pics.R;
 import com.ran.pics.application.UILApplication;
@@ -68,7 +71,7 @@ public class ImageClassifiGridAdapter extends RecyclerView.Adapter<ImageClassifi
                         }
 
                         @Override
-                        public void onLoadingComplete() {
+                        public void onLoadingComplete(Drawable resource) {
                             holder.ivProgressBar.setVisibility(View.GONE);
                         }
 

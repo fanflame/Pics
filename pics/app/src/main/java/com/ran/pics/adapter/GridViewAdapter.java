@@ -1,14 +1,17 @@
 package com.ran.pics.adapter;
 
 import android.app.Activity;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ran.pics.R;
 import com.ran.pics.application.UILApplication;
@@ -78,8 +81,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
         layoutParams.width = width;
         layoutParams.height = width;
 //        holder.imageView.setLayoutParams(layoutParams);
-        Log.v("aaa",""+picList.get(position).getLinkUrl());
-        ImageLoaderUtils.getInstance().loadImage(context,picList.get(position).getLinkUrl(), holder.imageView, new ImageLoaderUtils.OnLoadListener() {
+        Log.v("aaa",""+picList.get(position).getThumbnail());
+        ImageLoaderUtils.getInstance().loadImage(context,picList.get(position).getThumbnail(), holder.imageView, new ImageLoaderUtils.OnLoadListener() {
             @Override
             public void onLoadingStarted() {
                 holder.progressBar.setVisibility(View.VISIBLE);
@@ -93,7 +96,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.Holder
             }
 
             @Override
-            public void onLoadingComplete() {
+            public void onLoadingComplete(Drawable resource) {
                 holder.progressBar.setVisibility(View.GONE);
             }
 
