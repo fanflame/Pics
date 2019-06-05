@@ -77,8 +77,8 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
     private GetBaiduPicsTask postBaiduPicsTask;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.tvSearch)
-    TextView tvSearch;
+//    @BindView(R.id.tvSearch)
+//    TextView tvSearch;
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
     @BindView(R.id.leftContainer)
@@ -162,6 +162,7 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
         animator.start();
     }
 
+    @SuppressWarnings("unused")
     public void setChangeBgColor(int color) {
         getRecycleView().setBackgroundColor(color);
         searchContainer.setBackgroundColor(color + 0xaa000000);
