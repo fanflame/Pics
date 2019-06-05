@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -44,6 +45,7 @@ import com.fanyiran.utils.recycleadapter.RvBaseAdapter;
 import com.fanyiran.utils.recycleadapter.RvListener;
 import com.fanyiran.utils.recycleadapter.RvViewHolder;
 import com.ran.pics.R;
+import com.ran.pics.activity.fragment.SearchFragment;
 import com.ran.pics.activity.task.GetBaiduPicsTask;
 import com.ran.pics.adapter.MainPagerAdapter;
 import com.ran.pics.adapter.RecycleViewAdapter;
@@ -85,7 +87,13 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
     FrameLayout leftContainer;
     @BindView(R.id.searchContainer)
     LinearLayout searchContainer;
+    @BindView(R.id.tvSearch)
+    TextView tvSearch;
+
     private boolean isLoadMore;
+    private ViewStub searchViewStub;
+    private SearchFragment searchFragment;
+    private int lastColor;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -125,6 +133,7 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
                 }
             }
         });
+        getRecycleView().setNestedScrollingEnabled(true);
     }
 
     private void changeBgColor() {
@@ -165,8 +174,10 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
     @SuppressWarnings("unused")
     public void setChangeBgColor(int color) {
         getRecycleView().setBackgroundColor(color);
-        searchContainer.setBackgroundColor(color + 0xaa000000);
-        Utils.setStatusBarColor(getWindow(),(color + (0xaa000000)));
+
+        lastColor = color + 0xaa000000;
+        searchContainer.setBackgroundColor(lastColor);
+        Utils.setStatusBarColor(getWindow(),lastColor);
     }
 
     private void loadNextPage() {
@@ -222,6 +233,10 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
 
     @Override
     public void onBackPressed() {
+        if (searchFragment != null && searchFragment.getVisible()) {
+            searchFragment.setVisible(false);
+            return;
+        }
         if (System.currentTimeMillis() - lastPressBackTime <= PRESS_EXIT_INTERVAL) {
             super.onBackPressed();
         } else {
@@ -265,7 +280,25 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
 
     @OnClick(R.id.tvSearch)
     public void onTvSearchClick() {
-
+        if (searchViewStub == null) {
+            searchViewStub = findViewById(R.id.searchViewStub);
+            searchViewStub.inflate();
+            searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentSearch);
+            searchFragment.setSearchColor(lastColor);
+            searchFragment.setOnSearchClick(new SearchFragment.OnSearchClick() {
+                @Override
+                public void onSearchClick(String keyWord) {
+                    MainActivity.this.keyword = keyWord;
+                    tvSearch.setText(keyWord);
+                    getRecycleView().scrollToPosition(0);
+                    swipeRefreshLayout.setRefreshing(true);
+                    loadFirstPage();
+                }
+            });
+        } else {
+            // TODO: 2019-06-05  searchFragment的显示隐藏不是很合适需要修改
+            searchFragment.setVisible(true,lastColor);
+        }
     }
 
     @OnClick(R.id.ivMenu)
@@ -280,4 +313,5 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

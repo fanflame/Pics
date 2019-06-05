@@ -2,33 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical">
-    <EditText
-        style="@style/et_styles"
-        android:hint="你想要的这里都有"
-        android:id="@+id/etSearch"
-        android:layout_margin="8dp"
-        android:imeOptions="actionSearch"
-        android:maxLines="1"/>
+    <include layout="@layout/search_real"/>
+
     <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/gvRefresh"
-                style="@style/gv_styles"/>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <com.ran.pics.view.progressbar.CircularProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:indeterminateOnly="false" />
-    </FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/bodyLayout"
+        android:background="@color/white"/>
 </LinearLayout>

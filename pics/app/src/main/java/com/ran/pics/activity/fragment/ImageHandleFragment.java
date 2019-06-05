@@ -81,7 +81,7 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
         if(pic == null)
             return;
         ToastUtil.showShort(rootView, "请稍后");
-        File f = ImageLoaderUtils.getInstance().getDiskCache(pic.getLinkUrl());
+        File f = ImageLoaderUtils.getInstance().getDiskCache(getContext(),pic.getLinkUrl());
         if (f == null || !f.exists()) {
             ToastUtil.showShort(rootView, "设置失败,请重试");
             return;
@@ -101,7 +101,7 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
         if(pic == null)
             return;
         try {
-            File f = ImageLoaderUtils.getInstance().getDiskCache(pic.getLinkUrl());
+            File f = ImageLoaderUtils.getInstance().getDiskCache(getContext(),pic.getLinkUrl());
             if (f == null || !f.exists())
                 return;
             File temp = new File(Environment.getExternalStorageDirectory()
@@ -122,7 +122,7 @@ public class ImageHandleFragment extends Fragment implements View.OnClickListene
     public void onDownWallpaperClick(View v) {
         if(pic == null)
             return;
-        File f = ImageLoaderUtils.getInstance().getDiskCache(pic.getLinkUrl());
+        File f = ImageLoaderUtils.getInstance().getDiskCache(getContext(),pic.getLinkUrl());
         if (f == null || !f.exists()) {
             ToastUtil.showShort(rootView, "下载失败,请重试");
             return;

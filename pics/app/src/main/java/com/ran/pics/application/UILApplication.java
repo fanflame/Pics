@@ -39,14 +39,6 @@ public class UILApplication extends Application {
         return dm.widthPixels / 2;
     }
 
-    public static void missKeyBoard(Activity context) {
-        ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
-                .hideSoftInputFromWindow(
-                        context
-                                .getCurrentFocus()
-                                .getWindowToken(),
-                        InputMethodManager.HIDE_NOT_ALWAYS);
-    }
     @Override
     public void onCreate() {
         super.onCreate();

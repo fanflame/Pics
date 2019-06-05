@@ -30,13 +30,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ran.pics.R;
-import com.ran.pics.activity.ImageSearchResultActivity;
 import com.ran.pics.activity.task.GetBaiduPicsTask;
 import com.ran.pics.adapter.ImageClassifiGridAdapter;
-import com.ran.pics.application.UILApplication;
 import com.ran.pics.bean.Album;
 import com.ran.pics.bean.Pic;
 import com.ran.pics.util.ToastUtil;
+import com.ran.pics.util.Utils;
 
 import java.util.ArrayList;
 
@@ -151,8 +150,8 @@ public class ImageClassifiGridFragment extends Fragment implements View.OnClickL
                                 ToastUtil.showShort(rootView, "请输入有效关键字");
                                 return false;
                             }
-                            UILApplication.missKeyBoard(getActivity());
-                            ImageSearchResultActivity.startImageSearchResultActivity(getActivity(), etSearch.getText().toString().trim());
+                            Utils.missKeyBoard(getActivity());
+//                            ImageSearchResultActivity.startImageSearchResultActivity(getActivity(), etSearch.getText().toString().trim());
                             return true;
                         }
                         return false;
@@ -190,8 +189,8 @@ public class ImageClassifiGridFragment extends Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         Album album = (Album) v.getTag();
-        Intent intent = new Intent(getActivity(), ImageSearchResultActivity.class);
-        intent.putExtra(ImageSearchResultActivity.KEY_WORD,album.getAlbumName());
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), ImageSearchResultActivity.class);
+//        intent.putExtra(ImageSearchResultActivity.KEY_WORD,album.getAlbumName());
+//        startActivity(intent);
     }
 }

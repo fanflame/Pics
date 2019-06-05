@@ -52,5 +52,8 @@
     <dimen name="text_radius">0dp</dimen>
     <dimen name="dimen_8">8dp</dimen>
     <dimen name="radius">8dp</dimen>
+    <dimen name="menu_width">24dp</dimen>
+    <dimen name="search_width">40dp</dimen>
+    <dimen name="search_font_size">18sp</dimen>
 
 </resources>

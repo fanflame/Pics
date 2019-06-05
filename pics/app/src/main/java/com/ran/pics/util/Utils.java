@@ -1,5 +1,6 @@
 package com.ran.pics.util;
 
+import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -142,17 +144,12 @@ public class Utils {
     }
 
     public static void setWallPaper(Context context, String bmpPath, View view) {
-        WallpaperManager wallpaperManager = WallpaperManager
-                .getInstance(context);
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
         Bitmap bitmap;
         try {
             bitmap = BitmapFactory.decodeStream(new FileInputStream(bmpPath));
-            wallpaperManager.setBitmap(bitmap);
-        } catch (FileNotFoundException e) {
-            ToastUtil.showShort(view, "图片未找到");
-            e.printStackTrace();
-            return;
-        } catch (IOException e) {
+            wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_LOCK);
+        } catch (Exception e) {
             ToastUtil.showShort(view, "设置失败");
             e.printStackTrace();
             return;
@@ -160,42 +157,18 @@ public class Utils {
         ToastUtil.showShort(view, "设置成功");
     }
 
-    public static void setLockPaper(Context context, String file, View view) {
-        WallpaperManager mWallManager = WallpaperManager.getInstance(context);
-        Class class1 = mWallManager.getClass();// 获取类名
+    public static void setLockPaper(Context context, String bmpPath, View view) {
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+        Bitmap bitmap;
         try {
-            Method setWallPaperMethod = class1.getMethod(
-                    "setBitmapToLockWallpaper", Bitmap.class);// 获取设置锁屏壁纸的函数
-            setWallPaperMethod.invoke(mWallManager,
-                    BitmapFactory.decodeStream(new FileInputStream(file)));
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(bmpPath));
+            wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_SYSTEM);
+        } catch (Exception e) {
+            ToastUtil.showShort(view, "设置失败");
             e.printStackTrace();
-            ToastUtil.showShort(view, "锁屏壁纸设置失败");
-            return;
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            ToastUtil.showShort(view, "锁屏壁纸设置失败");
-            return;
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            ToastUtil.showShort(view, "锁屏壁纸设置失败");
-            return;
-        } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            ToastUtil.showShort(view, "锁屏壁纸设置失败");
-            return;
-        }// 调用锁屏壁纸的函数，并指定壁纸的路径imageFilesPath
-        catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            ToastUtil.showShort(view, "锁屏壁纸设置失败");
             return;
         }
-        ToastUtil.showShort(view, "锁屏壁纸设置成功");
+        ToastUtil.showShort(view, "设置成功");
     }
 
     public static void deleteSplashBmp(String bmpPath) {
@@ -255,6 +228,19 @@ public class Utils {
         }
     }
 
+    public static void missKeyBoard(Activity context) {
+        ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    public static void showSoftKeyboard(EditText view, Context mContext) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
     public static boolean createNoMediaFile() {
         File temp = new File(Environment.getExternalStorageDirectory()
                 + Constant.Config.DOWN_BMP_PATH);
@@ -284,7 +270,7 @@ public class Utils {
         HuaweiUtils.setFullScreenWindowLayoutInDisplayCutout(window);
     }
 
-    public static void setNavigatorColor(int color,Window window) {
+    public static void setNavigatorColor(int color, Window window) {
         window.setNavigationBarColor(color);
     }
 
@@ -299,7 +285,7 @@ public class Utils {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
-    public static void setStatusBarColor(Window window,int color) {
+    public static void setStatusBarColor(Window window, int color) {
         //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色

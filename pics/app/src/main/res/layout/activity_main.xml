@@ -7,60 +7,76 @@
     android:orientation="vertical">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.appbar.AppBarLayout
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/searchContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/red_btn_bg_color"
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="4dp"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-                <ImageView
-                    android:id="@+id/ivMenu"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/menu" />
-
-                <TextView
-                    android:id="@+id/tvSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/drawable_search"
-                    android:gravity="center"
-                    android:text="搜索"
-                    android:textColor="@color/white" />
-
-            </LinearLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
-            android:layout_width="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            </androidx.recyclerview.widget.RecyclerView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <LinearLayout
+                    android:id="@+id/searchContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red_btn_bg_color"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_scrollFlags="scroll|enterAlways|snap"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp">
+
+                    <ImageView
+                        android:id="@+id/ivMenu"
+                        android:layout_width="@dimen/menu_width"
+                        android:layout_height="@dimen/menu_width"
+                        android:src="@drawable/menu" />
+
+                    <TextView
+                        android:id="@+id/tvSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/drawable_search"
+                        android:gravity="center"
+                        android:textSize="@dimen/search_font_size"
+                        android:text="搜索"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+<!--                <include layout="@layout/search"-->
+<!--                    app:layout_scrollFlags="scroll|enterAlways"/>-->
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <ViewStub
+            android:id="@+id/searchViewStub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/viewstub_fragment_search" />
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/leftContainer"

@@ -41,11 +41,25 @@
             android:id="@+id/tvVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:padding="8dp"
             android:text="版本"
             android:textColor="@color/blue_btn_bg_color"
-            android:textSize="16dp"></TextView>
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/tvCollection"
+            style="@style/tv_styles"
+            android:text="收藏的图片"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/tvClearCache"
+            style="@style/tv_styles"
+            android:text="清除缓存"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:checked="false" />
 
     </LinearLayout>
 
