@@ -16,6 +16,7 @@
 
 package com.ran.pics.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -57,6 +58,9 @@ public class ImageDetailActivity extends BaseActivity
         implements ScaleAnimationImageView.SingleTapListener, OnMenuItemClickListener {
     public static final String EXTRA_IMAGE = "extra_image";
     public static final String PIC_LIST = "pic_list";
+    public static final String REQUEST_CODE = "REQUEST_CODE";
+    private static final int RESULT_CODE = 280;
+    private static final String DETAL_CURRENT_POSITION = "DETAL_CURRENT_POSITION";
 
     private ImagePagerAdapter mAdapter;
     private ViewPager mPager;
@@ -65,11 +69,12 @@ public class ImageDetailActivity extends BaseActivity
     private ContextMenuDialogFragment mMenuDialogFragment;
     private Pic tapPic;
 
-    static public void startActivity(Context context, int position, ArrayList<Pic> data) {
+    static public void startActivity(Activity context, int position, int requestCode,ArrayList<Pic> data) {
         Intent intent = new Intent(context, ImageDetailActivity.class);
         intent.putExtra(Constant.Extra.IMAGE_POSITION, position);
         intent.putExtra(ImageDetailActivity.PIC_LIST, data);
-        context.startActivity(intent);
+        intent.putExtra(REQUEST_CODE,requestCode);
+        context.startActivityForResult(intent,requestCode);
     }
 
     @Override
@@ -226,5 +231,13 @@ public class ImageDetailActivity extends BaseActivity
                 break;
             default:
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent = new Intent();
+        intent.putExtra(DETAL_CURRENT_POSITION,111);
+        setResult(RESULT_CODE,intent);
     }
 }

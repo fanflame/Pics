@@ -39,4 +39,5 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'//ConverterFactory的String依赖包
 
     implementation 'com.github.fanflame:libutil:1.0.6'
+    implementation project(":spinlibrary")
 }

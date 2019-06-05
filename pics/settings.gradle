@@ -1,1 +1,1 @@
-include ':app', ':liboverscroll'
+include ':app', ':liboverscroll',':spinlibrary'

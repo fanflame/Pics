@@ -44,7 +44,5 @@ public abstract class Pic implements Serializable {
 		this.localFile = localFile;
 	}
 
-    public int getItemType(){
-	    return PicItem.TYPE_PIC;
-    }
+    public abstract int getItemType();
 }

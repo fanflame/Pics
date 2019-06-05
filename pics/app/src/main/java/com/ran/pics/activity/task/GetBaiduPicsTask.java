@@ -54,7 +54,7 @@ public class GetBaiduPicsTask {
 		optionsMap.put("ie","utf-8");
 		optionsMap.put("word",searchWord+"手机高清");
 //		optionsMap.put("cg","girl");
-		optionsMap.put("pn",pageNum+"");
+		optionsMap.put("pn",pageNum * onePageNum+"");
 		optionsMap.put("rn",onePageNum+"");
 		optionsMap.put("width","1080");
 		optionsMap.put("height","1920");

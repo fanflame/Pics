@@ -51,5 +51,6 @@
 
     <dimen name="text_radius">0dp</dimen>
     <dimen name="dimen_8">8dp</dimen>
+    <dimen name="radius">8dp</dimen>
 
 </resources>

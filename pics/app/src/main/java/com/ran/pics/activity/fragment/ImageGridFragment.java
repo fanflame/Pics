@@ -194,6 +194,6 @@ public class ImageGridFragment extends Fragment implements View.OnClickListener 
     }
 
     private void onGridItemViewClick(int position) {
-        ImageDetailActivity.startActivity(getContext(), position, gridAdapter.getData());
+        ImageDetailActivity.startActivity(getActivity(), position,1, gridAdapter.getData());
     }
 }

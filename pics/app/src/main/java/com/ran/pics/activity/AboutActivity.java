@@ -13,15 +13,5 @@ public class AboutActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
         setContentView(R.layout.activity_about);
-		initView();
-        initData();
 	}
-
-	private void initView() {
-		tv_version = (TextView) findViewById(R.id.tv_version);
-	}
-
-    private void initData(){
-        tv_version.setText("版本号:" + Utils.getVersion(this));
-    }
 }
