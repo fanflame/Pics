@@ -1,6 +1,7 @@
 package com.ran.pics.bean;
 
 import com.google.gson.annotations.SerializedName;
+import com.ran.pics.adapter.itemtype.ItemTypeConstants;
 import com.ran.pics.adapter.itemtype.PicItem;
 
 import java.io.Serializable;
@@ -439,7 +440,7 @@ public class BaiduJson implements Serializable {
         private String DecorateCompanyId;
         private String DecorateCompanyGrade;
         private String personalized;
-        private int itemType = PicItem.TYPE_PIC;
+        private int itemType = ItemTypeConstants.TYPE_PIC;
 
         public String getThumbURL() {
             return thumbURL;

@@ -2,37 +2,32 @@ package com.ran.pics.adapter.itemtype;
 
 import com.fanyiran.utils.recycleadapter.ItemType;
 import com.fanyiran.utils.recycleadapter.RvViewHolder;
-import com.github.ybq.android.spinkit.SpinKitView;
-import com.github.ybq.android.spinkit.SpriteFactory;
-import com.github.ybq.android.spinkit.Style;
-import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.ran.pics.R;
 import com.ran.pics.bean.Pic;
 
 /**
- * Created by fanqiang on 2019-06-04.
+ * Created by fanqiang on 2019-06-06.
  */
-public class LoadMoreItem implements ItemType {
+public class NoMoreItem implements ItemType {
 
     @Override
     public boolean openClick() {
-        return true;
+        return false;
     }
 
     @Override
     public int getType() {
-        return ItemTypeConstants.TYPE_LOAD_MORE;
+        return ItemTypeConstants.TYPE_NOMORE;
     }
 
     @Override
     public int getLayout() {
-        return R.layout.recycle_item_pic_loadmore;
+        return R.layout.recycle_item_pic_nomore;
     }
 
     @Override
     public void fillContent(RvViewHolder rvViewHolder, int position, Object data) {
-        Sprite drawable = SpriteFactory.create(Style.CHASING_DOTS);
-        ((SpinKitView)(rvViewHolder.getView(R.id.spin_kit))).setIndeterminateDrawable(drawable);
+
     }
 
     @Override

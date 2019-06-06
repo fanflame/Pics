@@ -69,6 +69,29 @@ public class GlideLoaderUtils extends ImageLoaderUtils {
     }
 
     @Override
+    public void loadFile(Context context, File file, ImageView imageView, OnLoadListener onLoadListener) {
+        Glide
+                .with(context)
+                .load(file)
+                .centerCrop()
+                .placeholder(imageHolder)
+                .addListener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        onLoadListener.onLoadingFailed(e.getMessage());
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        onLoadListener.onLoadingComplete(resource);
+                        return false;
+                    }
+                })
+                .into(imageView);
+    }
+
+    @Override
     public void cancelLoad(ImageView imageView) {
 
     }

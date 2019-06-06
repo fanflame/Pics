@@ -2,6 +2,7 @@ package com.ran.pics.adapter;
 
 import com.fanyiran.utils.recycleadapter.RvBaseAdapter;
 import com.ran.pics.adapter.itemtype.LoadMoreItem;
+import com.ran.pics.adapter.itemtype.NoMoreItem;
 import com.ran.pics.adapter.itemtype.PicItem;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class RecycleViewAdapter extends RvBaseAdapter {
         super(baseDataList);
         addItemType(new PicItem());
         addItemType(new LoadMoreItem());
+        addItemType(new NoMoreItem());
     }
 
 

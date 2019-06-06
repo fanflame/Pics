@@ -10,7 +10,6 @@ import com.ran.pics.view.PaletteLinearLayout;
  * Created by fanqiang on 2019-05-31.
  */
 public class PicItem implements ItemType {
-    public static final int TYPE_PIC = 0;
 
     @Override
     public boolean openClick() {
@@ -19,7 +18,7 @@ public class PicItem implements ItemType {
 
     @Override
     public int getType() {
-        return TYPE_PIC;
+        return ItemTypeConstants.TYPE_PIC;
     }
 
     @Override

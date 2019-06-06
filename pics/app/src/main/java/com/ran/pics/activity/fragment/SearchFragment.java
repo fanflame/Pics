@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fanyiran.utils.LogUtil;
 import com.ran.pics.R;
@@ -60,6 +62,16 @@ public class SearchFragment extends Fragment {
         ButterKnife.bind(this,rootView);
         menuWidth = (int) getResources().getDimension(R.dimen.menu_width);
         searchWidth = getResources().getDimensionPixelSize(R.dimen.search_width);
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (event == null || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    onSearchClick();
+                    return true;
+                }
+                return false;
+            }
+        });
         return rootView;
     }
 

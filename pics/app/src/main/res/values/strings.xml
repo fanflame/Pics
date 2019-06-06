@@ -58,4 +58,5 @@
     
     <string name="default_progressbar">Default Progressbar:</string>
     <string name="context_menu">Context menu</string>
+    <string name="load_nomore">加载完毕</string>
 </resources>

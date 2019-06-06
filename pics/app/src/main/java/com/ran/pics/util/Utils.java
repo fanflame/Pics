@@ -118,6 +118,14 @@ public class Utils {
         FileOutputStream fo = null;
         FileChannel in = null;
         FileChannel out = null;
+        if (!target.exists()) {
+            try {
+                target.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
         try {
             fi = new FileInputStream(source);
             fo = new FileOutputStream(target);
@@ -129,10 +137,12 @@ public class Utils {
             return false;
         } finally {
             try {
-                fi.close();
+                if (fi != null)
+                    fi.close();
                 if (in != null)
                     in.close();
-                fo.close();
+                if (fo != null)
+                    fo.close();
                 if (out != null)
                     out.close();
             } catch (IOException e) {
@@ -148,7 +158,7 @@ public class Utils {
         Bitmap bitmap;
         try {
             bitmap = BitmapFactory.decodeStream(new FileInputStream(bmpPath));
-            wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_LOCK);
+            wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK);
         } catch (Exception e) {
             ToastUtil.showShort(view, "设置失败");
             e.printStackTrace();
@@ -162,7 +172,7 @@ public class Utils {
         Bitmap bitmap;
         try {
             bitmap = BitmapFactory.decodeStream(new FileInputStream(bmpPath));
-            wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_SYSTEM);
+            wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM);
         } catch (Exception e) {
             ToastUtil.showShort(view, "设置失败");
             e.printStackTrace();

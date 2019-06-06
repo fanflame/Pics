@@ -32,7 +32,6 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
     private int width;
     private boolean isShowCheckBox;
     private OnItemListener onItemListener;
-    private Context context;
 
 
     public interface OnItemListener{
@@ -67,8 +66,8 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
         layoutParams.width = width;
         layoutParams.height = width;
         holder.ivShow.setLayoutParams(layoutParams);
-        ImageLoaderUtils.getInstance().loadImage(context,
-                pic.getLinkUrl(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
+        ImageLoaderUtils.getInstance().loadFile(holder.ivShow.getContext(),
+                pic.getLocalFile(), holder.ivShow, new ImageLoaderUtils.OnLoadListener() {
                     @Override
                     public void onLoadingStarted() {
                         holder.ivProgressBar.setVisibility(View.VISIBLE);
@@ -91,20 +90,25 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
                 });
 
         if (isShowCheckBox) {
-            holder.cbChoice.setVisibility(View.VISIBLE);
-            holder.cbChoice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            holder.ivChoice.setSelected(pic.isChecked());
+            holder.ivChoice.setVisibility(View.VISIBLE);
+            holder.ivChoice.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    pic.setChecked(isChecked);
+                public void onClick(View v) {
+                    boolean selected = !holder.ivChoice.isSelected();
+                    holder.ivChoice.setSelected(selected);
+                    pic.setChecked(selected);
                     if (picCheckedList == null)
                         picCheckedList = new ArrayList<Pic>();
-                    picCheckedList.add(pic);
+                    if (selected) {
+                        picCheckedList.add(pic);
+                    } else {
+                        picCheckedList.remove(pic);
+                    }
                 }
             });
-
-            holder.cbChoice.setChecked(pic.isChecked());
         } else {
-            holder.cbChoice.setVisibility(View.GONE);
+            holder.ivChoice.setVisibility(View.GONE);
         }
         holder.itemView.setTag(R.id.tag_key_collection_id,position);
         holder.itemView.setOnClickListener(this);
@@ -165,8 +169,8 @@ public class ImageCollectionAdapter extends RecyclerView.Adapter<ImageCollection
         ImageView ivShow;
         @BindView(R.id.ivProgressBar)
         ImageView ivProgressBar;
-        @BindView(R.id.cbChoice)
-        CheckBox cbChoice;
+        @BindView(R.id.ivChoice)
+        ImageView ivChoice;
 
         public Holder(View itemView) {
             super(itemView);

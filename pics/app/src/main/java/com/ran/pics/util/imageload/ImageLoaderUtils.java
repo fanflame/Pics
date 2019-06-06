@@ -24,6 +24,7 @@ public abstract class ImageLoaderUtils {
     }
     abstract public void loadImage(Context context, String imgUrl, ImageView imageView, final OnLoadListener onLoadListener);
     abstract public void loadImage(Context context,String imgUrl, ImageView imageView);
+    abstract public void loadFile(Context context,File file, ImageView imageView,final OnLoadListener onLoadListener);
     abstract public void cancelLoad(ImageView imageView);
     abstract public File getDiskCache(Context context,String imgUrl);
     abstract public void resume();

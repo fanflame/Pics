@@ -17,21 +17,18 @@
 package com.ran.pics.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
-import android.view.WindowManager.LayoutParams;
+import android.view.ViewStub;
 
 import com.ran.pics.R;
 import com.ran.pics.activity.fragment.ImageDetailFragment;
+import com.ran.pics.activity.fragment.ImageDetailMenuFragment;
 import com.ran.pics.adapter.ImagePagerAdapter;
 import com.ran.pics.animation.DepthPageTransformer;
 import com.ran.pics.bean.Pic;
@@ -40,14 +37,12 @@ import com.ran.pics.util.ToastUtil;
 import com.ran.pics.util.Utils;
 import com.ran.pics.util.imageload.ImageLoaderUtils;
 import com.ran.pics.view.ScaleAnimationImageView;
+
 import android.view.WindowManager;
 import android.view.Window;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.internal.Util;
 
 public class ImageDetailActivity extends BaseActivity
         implements ScaleAnimationImageView.SingleTapListener {
@@ -61,13 +56,15 @@ public class ImageDetailActivity extends BaseActivity
     private ViewPager mPager;
     private ArrayList<Pic> picList;
     private Pic tapPic;
+    private ImageDetailMenuFragment imageDetailMenuFragment;
+    private ViewStub vewStubMenu;
 
-    static public void startActivity(Activity context, int position, int requestCode,ArrayList<Pic> data) {
+    static public void startActivity(Activity context, int position, int requestCode, ArrayList<Pic> data) {
         Intent intent = new Intent(context, ImageDetailActivity.class);
         intent.putExtra(Constant.Extra.IMAGE_POSITION, position);
         intent.putExtra(ImageDetailActivity.PIC_LIST, data);
-        intent.putExtra(REQUEST_CODE,requestCode);
-        context.startActivityForResult(intent,requestCode);
+        intent.putExtra(REQUEST_CODE, requestCode);
+        context.startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -84,7 +81,6 @@ public class ImageDetailActivity extends BaseActivity
 
         initView();
         initData();
-        initEvent();
     }
 
     private void initView() {
@@ -109,48 +105,77 @@ public class ImageDetailActivity extends BaseActivity
     @Override
     public void onSingleTap(ScaleAnimationImageView imageView) {
         tapPic = (Pic) imageView.getTag(ImageDetailFragment.DETAIL_IMG_TAG);
+        if (vewStubMenu == null) {
+            vewStubMenu = findViewById(R.id.vewStubMenu);
+            vewStubMenu.inflate();
+            imageDetailMenuFragment = (ImageDetailMenuFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_image_detail_menu);
+            imageDetailMenuFragment.setOnImageDetailMenuHandleListener(new ImageDetailMenuFragment.OnImageDetailMenuHandleListener() {
+
+                @Override
+                public void onCloseClick() {
+                    ImageDetailActivity.this.finish();
+                }
+
+                @Override
+                public void onDownLoadClick() {
+                    downLoad();
+                }
+
+                @Override
+                public void onSetWallPaperClick() {
+                    setWallPaper();
+                }
+
+                @Override
+                public void onSetLockPaperClick() {
+                    setLockPaper();
+                }
+            });
+        } else {
+            imageDetailMenuFragment.changeVisible();
+        }
     }
 
-    public void onMenuItemClick(View clickedView, int position) {
-        switch (position) {
-            case 1:
-                File file;
-                if (tapPic != null
-                        && (file = ImageLoaderUtils.getInstance().getDiskCache(this,tapPic.getLinkUrl())) != null)
-                    Utils.setWallPaper(this, file.getPath(), mPager);
-                else
-                    ToastUtil.showShort(mPager, "设置失败");
-                break;
-            case 2:
-                if (tapPic != null
-                        && (file = ImageLoaderUtils.getInstance().getDiskCache(this,tapPic.getLinkUrl())) != null)
-                    Utils.setLockPaper(this, file.getPath(), mPager);
-                else
-                    ToastUtil.showShort(mPager, "设置失败");
-                break;
-            case 3:
-                if (tapPic != null
-                        && (file = ImageLoaderUtils.getInstance().getDiskCache(this,tapPic.getLinkUrl())) != null
-                        && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    File fileTemp = new File(Environment.getExternalStorageDirectory() + Constant.Config.DOWN_BMP_PATH);
-                    if (!fileTemp.exists())
-                        fileTemp.mkdirs();
-                    fileTemp = new File(fileTemp.getAbsolutePath() + "/" + file.getName());
-                    if (Utils.fileChannelCopy(file, fileTemp)) {
-                        ToastUtil.showShort(mPager, "收藏成功");
-                    }
-                } else
-                    ToastUtil.showShort(mPager, "收藏失败");
-                break;
-            default:
+    private void setLockPaper() {
+        File file;
+        if (tapPic != null
+                && (file = ImageLoaderUtils.getInstance().getDiskCache(this, tapPic.getLinkUrl())) != null)
+            Utils.setLockPaper(this, file.getPath(), mPager);
+        else
+            ToastUtil.showShort(mPager, "设置失败");
+    }
+
+    private void setWallPaper() {
+        File file;
+        if (tapPic != null
+                && (file = ImageLoaderUtils.getInstance().getDiskCache(this, tapPic.getLinkUrl())) != null)
+            Utils.setWallPaper(this, file.getPath(), mPager);
+        else
+            ToastUtil.showShort(mPager, "设置失败");
+    }
+
+    private void downLoad() {
+        File file;
+        if (tapPic != null
+                && (file = ImageLoaderUtils.getInstance().getDiskCache(this, tapPic.getLinkUrl())) != null
+                && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File fileTemp = new File(Environment.getExternalStorageDirectory() + Constant.Config.DOWN_BMP_PATH);
+            if (!fileTemp.exists())
+                fileTemp.mkdirs();
+            fileTemp = new File(fileTemp.getAbsolutePath() + "/" + file.getName());
+            if (Utils.fileChannelCopy(file, fileTemp)) {
+                ToastUtil.showShort(mPager, "收藏成功");
+                return;
+            }
         }
+        ToastUtil.showShort(mPager, "收藏失败");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Intent intent = new Intent();
-        intent.putExtra(DETAL_CURRENT_POSITION,111);
-        setResult(RESULT_CODE,intent);
+        intent.putExtra(DETAL_CURRENT_POSITION, 111);
+        setResult(RESULT_CODE, intent);
     }
 }

@@ -16,14 +16,16 @@
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             app:srcCompat="@mipmap/ic_launcher" />
-        <CheckBox
-            android:id="@+id/cbChoice"
-            style="@style/cb_styles"
-            android:button="@drawable/checkbox_btn"
-            android:layout_gravity="left|top"
-            android:layout_marginLeft="8dp"
+
+        <ImageView
+            android:id="@+id/ivChoice"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|top"
             android:layout_marginTop="8dp"
-            android:checked="false" />
+            android:layout_marginRight="8dp"
+            android:src="@drawable/checkbox_btn"/>
+
         <ImageView
             android:id="@+id/ivProgressBar"
             android:layout_width="wrap_content"

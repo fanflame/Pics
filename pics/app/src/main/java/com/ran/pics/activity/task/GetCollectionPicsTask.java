@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 
+import com.ran.pics.bean.BaiduJson;
 import com.ran.pics.bean.Pic;
 
 import java.io.File;
@@ -69,11 +70,9 @@ public class GetCollectionPicsTask {
             ArrayList<Pic> resultList = new ArrayList<Pic>(size);
             Pic picTemp;
             for (int i = 0; i < size; i++) {
-//                picTemp = new Pic();
-//                picTemp.setLinkUrl("file://"+files[i].getAbsolutePath());
-//                picTemp.setName(files[i].getName());
-//                picTemp.setLocalFile(files[i]);
-//                resultList.add(picTemp);
+                picTemp = new BaiduJson.ImgsBean();
+                picTemp.setLocalFile(new File(file.getAbsolutePath(),files[i].getName()));
+                resultList.add(picTemp);
             }
             return resultList;
         }

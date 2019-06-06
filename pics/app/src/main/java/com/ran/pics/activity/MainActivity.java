@@ -49,6 +49,7 @@ import com.ran.pics.activity.fragment.SearchFragment;
 import com.ran.pics.activity.task.GetBaiduPicsTask;
 import com.ran.pics.adapter.MainPagerAdapter;
 import com.ran.pics.adapter.RecycleViewAdapter;
+import com.ran.pics.adapter.itemtype.ItemTypeConstants;
 import com.ran.pics.adapter.itemtype.LoadMoreItem;
 import com.ran.pics.adapter.itemtype.PicItem;
 import com.ran.pics.bean.BaiduJson;
@@ -152,12 +153,14 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
         }
         RvViewHolder childViewHolder = (RvViewHolder) getRecycleView().getChildViewHolder(childAtFirst);
         PaletteLinearLayout view = (PaletteLinearLayout) childViewHolder.getView(R.id.linearLayout);
-        view.getPaletteColor(originTag, (long tag, int color) -> {
-                    if (tag == originTag) {
-                        startAnim(color);
+        if (view != null) {
+            view.getPaletteColor(originTag, (long tag, int color) -> {
+                        if (tag == originTag) {
+                            startAnim(color);
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 
     private void startAnim(int newBgColor) {
@@ -226,7 +229,11 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
         }
         baseDataList.addAll(picList);
         BaiduJson.ImgsBean imgsBean = new BaiduJson.ImgsBean();
-        imgsBean.setItemType(LoadMoreItem.TYPE_LOAD_MORE);
+        if (picList.size() == 0) {
+            imgsBean.setItemType(ItemTypeConstants.TYPE_NOMORE);
+        } else {
+            imgsBean.setItemType(ItemTypeConstants.TYPE_LOAD_MORE);
+        }
         baseDataList.add(imgsBean);
         recycleViewAdapter.notifyDataSetChanged();
     }
@@ -268,10 +275,10 @@ public class MainActivity extends BaseActivity implements RvListener<Pic> {
     @Override
     public void onClick(Pic data, int position) {
         switch (baseDataList.get(position).getItemType()) {
-            case PicItem.TYPE_PIC:
+            case ItemTypeConstants.TYPE_PIC:
                 ImageDetailActivity.startActivity(this, position,REQUEST_CODE_DETAIL, baseDataList);
                 break;
-            case LoadMoreItem
+            case ItemTypeConstants
                     .TYPE_LOAD_MORE:
                 loadNextPage();
                 break;
